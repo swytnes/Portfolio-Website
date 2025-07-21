@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio von Philipp Stockerl">
+  <title>Portfolio Philipp Stockerl</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    id="MathJax-script">
+  </script>
+
+</head>
+<body>
+  <!-- Full-page animated grid background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="#home" class="logo">Philipp Stockerl</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">Über mich</a></li>
+          <li><a href="#projects">Projekte</a></li>
+          <li><a href="#skills">IT Skills</a></li>
+          <li><a href="#education">Ausbildung</a></li>
+          <li><a href="#contact">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero container">
+    <!-- Hero canvas for particles/text -->
+    <canvas id="hero-canvas"></canvas>
+    <img src="Assets/pictureGrey.png" alt="Profilbild" class="profile-pic">
+    <h1>Hallo, ich bin Philipp</h1>
+    <p>Student an der Universität Passau</p>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="container">
+    <h2>Über mich</h2>
+    <p>Ich studiere Wirtschaftswissenschaften und Wirtschaftsinformatik an der Universität Passau mit einem Schwerpunkt auf Supply Chain &amp; Operations Management.</p>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="education-section container">
+    <h2>Ausbildung</h2>
+    <div class="education-grid">
+      <div class="education-card">
+        <h3>Allgemeine Hochschulreife</h3>
+        <h4>Staatliche Fachoberschule Cham</h4>
+        <p>Schwerpunkt: Wirtschaft</p>
+        <p>2017–2019</p>
+      </div>
+      <div class="education-card">
+        <h3>B.Sc. Business Administration &amp; Economics</h3>
+        <h4>Universität Passau</h4>
+        <p>Schwerpunkt: Wirtschaftsinformatik</p>
+        <p>2021–heute</p>
+      </div>
+      <div class="education-card">
+        <h3>B.Sc. Information Systems</h3>
+        <h4>Universität Passau</h4>
+        <p>Fokus: Geschäftsprozesse &amp; Optimierung</p>
+        <p>2025–heute</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="container">
+    <h2>Projekte</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3>Bachelor Seminar in Operations Management: Spillover Effects in Competitive Facility Location</h3>
+        <p>Gruppenarbeit (2 P) – Competitive Facility Location with Random Utility</p>
+        <a href="#" class="btn">Mehr erfahren</a>
+      </div>
+      <div class="project-card">
+        <h3>Management Science Practical Course</h3>
+        <p>Einzelarbeit – Minimum-Cost-Flow Optimierungsproblem in Gurobi</p>
+        <a href="#" class="btn">Mehr erfahren</a>
+      </div>
+      <div class="project-card">
+        <h3>Web &amp; Data Engineering</h3>
+        <p>Gruppenarbeit (3 P) – Plattform zum Teilen und Bewerten von Rezepten</p>
+        <a href="#" class="btn">Mehr erfahren</a>
+      </div>
+      <div class="project-card">
+        <h3>Praktikum: Softwareentwicklung mit SAP Fiori</h3>
+        <p>Einzelarbeit – Frontend und Backend Entwicklung mit ABAP, SAP S/4HANA, RESTful API</p>
+        <a href="#" class="btn">Mehr erfahren</a>
+      </div>
+      <div class="project-card">
+        <h3>Praktikum: Geschäftsprozesse in ERP-Systemen</h3>
+        <p>Einzelarbeit – Übertragen realer Geschäftsprozesse in SAP GUI</p>
+        <a href="#" class="btn">Mehr erfahren</a>
+      </div>
+      <div class="project-card">
+        <h3>Gruppenarbeit: Geschäftsprozesse &amp; Business Models</h3>
+        <p>Gruppenarbeit (4 P) – Erarbeitung einer Unternehmensstruktur</p>
+        <a href="#" class="btn">Mehr erfahren</a>
+      </div>
+      <div class="project-card">
+        <h3>Praktikum zu Verhandlungsstrategien</h3>
+        <p>Gruppenarbeit (3 P) – Ausarbeitung von Verhandlungsstrategien im Procurement nach dem Harvard-Prinzip</p>
+        <a href="#" class="btn">Mehr erfahren</a>
+      </div>
+      <div class="project-card">
+        <h3>Blockseminare mit Projektarbeits-Charakter</h3>
+        <p>Einzel- &amp; Gruppenarbeit (1–8 P, >200 Std.) – Projektmanagement, Teammanagement, Zeitmanagement, Verhandlungsführung, Kommunikation, Führungskräfteschulung</p>
+        <a href="#" class="btn">Mehr erfahren</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- IT Skills Section -->
+  <section id="skills" class="skills-section container">
+    <h2>IT Skills</h2>
+
+    <!-- Frontend Group -->
+    <div class="skill-group">
+      <h3>Frontend</h3>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <img src="Assets/html5.png" alt="HTML5" class="icon">
+          <p>HTML5</p>
+        </div>
+        <div class="skill-card">
+          <img src="Assets/css3.png" alt="CSS3" class="icon">
+          <p>CSS3</p>
+        </div>
+        <div class="skill-card">
+          <img src="Assets/java-script.png" alt="JavaScript" class="icon">
+          <p>JavaScript</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Backend & OOP Group -->
+    <div class="skill-group">
+      <h3>Backend &amp; OOP</h3>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <img src="Assets/java.png" alt="Java" class="icon">
+          <p>Java</p>
+        </div>
+        <div class="skill-card">
+          <img src="Assets/sql.png" alt="SQL" class="icon">
+          <p>SQL</p>
+        </div>
+        <div class="skill-card">
+          <img src="Assets/github.png" alt="Git" class="icon">
+          <p>Git</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Linear Optimization & Data Analysis Group -->
+    <div class="skill-group">
+      <h3>Linear Optimization &amp; Data Analysis</h3>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <img src="Assets/python.png" alt="Python" class="icon">
+          <p>Python (Gurobi, Matplotlib, scikit-learn, pandas)</p>
+        </div>
+        <div class="skill-card">
+          <img src="Assets/r.png" alt="R" class="icon">
+          <p>R / RStudio</p>
+        </div>
+        <div class="skill-card">
+          <img src="Assets/tex.jpeg" alt="LaTeX" class="icon">
+          <p>LaTeX</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="container">
+    <h2>Kontakt</h2>
+    <p>Schreib mir: <a href="mailto:philipp.stockerl@hotmail.de">philipp.stockerl@hotmail.de</a></p>
+    <div class="social-icons">
+      <a href="https://github.com/swytnes" target="_blank" rel="noopener">
+        <img src="Assets/github.png" alt="GitHub" class="icon">
+      </a>
+      <a href="https://www.linkedin.com/in/dein-profil" target="_blank" rel="noopener">
+        <img src="Assets/linkedin.png" alt="LinkedIn" class="icon">
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer container">
+    <p>© 2025 Philipp Stockerl</p>
+  </footer>
+
+  <!-- Scripts -->
+
+  <script src="script.js"></script>
+  <script src="headerScrolls.js" ></script>
+</body>
+</html>
+
