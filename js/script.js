@@ -29,20 +29,40 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.copy(camPresets[0].pos);
 camera.lookAt(0, 0, 0);
 
+
+
+
 // ─── 3) Helpers & Licht
 scene.add(new THREE.GridHelper(200, 20, 0xffffff, 0x555555));
 
-const gridXZ = new THREE.GridHelper(200, 20, 0xffffff, 0x555555);
-gridXZ.rotation.x = Math.PI / 2;
+const size      = 300;
+const divisions = 30;
+const colorMain = 0x333333;
+const colorGrid = 0x111111;
+
+// XY‐Ebene
+const gridXY = new THREE.GridHelper(size, divisions, colorMain, colorGrid);
+gridXY.rotation.x = - Math.PI / 2;
+scene.add(gridXY);
+
+// XZ‐Ebene
+const gridXZ = new THREE.GridHelper(size, divisions, colorMain, colorGrid);
 scene.add(gridXZ);
 
-const gridYZ = new THREE.GridHelper(200, 20, 0xffffff, 0x555555);
+// YZ‐Ebene
+const gridYZ = new THREE.GridHelper(size, divisions, colorMain, colorGrid);
 gridYZ.rotation.z = Math.PI / 2;
 scene.add(gridYZ);
 
+// Grids halbtransparent machen:
+[gridXY, gridXZ, gridYZ].forEach(grid => {
+  grid.material.opacity = 0.2;
+  grid.material.transparent = true;
+});
+
 // Achsen als Zylinder, thickness steuerbar über `radius`
 const axisLength = 100;
-const radius     = 0.5;      // <-- hier die Dicke anpassen
+const radius     = 0.5;      
 const radialSegs = 8;
 
 // X‑Achse (rot)
