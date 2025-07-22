@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfolio von Philipp Stockerl">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Portfolio von Philipp Stockerl"/>
   <title>Portfolio Philipp Stockerl</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="styles.css">
-  <script>
-    window.MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
-    id="MathJax-script">
-  </script>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href="/css/styles.css"/>
+  <!-- Three.js module script (imports THREE internally) -->
 
+  <!-- MathJax (falls Du LaTeX brauchst) -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script"></script>
 </head>
+
 <body>
-  <!-- Full-page animated grid background -->
-  <canvas id="bg-canvas"></canvas>
+  <!-- 3D‑Canvas-Container: full‑screen and at the bottom layer -->
+  <div
+    id="three-container"
+    style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;"
+  ></div>
 
   <!-- Navbar -->
   <header class="navbar">
@@ -42,9 +39,8 @@
 
   <!-- Hero Section -->
   <section id="home" class="hero container">
-    <!-- Hero canvas for particles/text -->
     <canvas id="hero-canvas"></canvas>
-    <img src="Assets/pictureGrey.png" alt="Profilbild" class="profile-pic">
+    <img src="/Assets/pictureGrey.png" alt="Profilbild" class="profile-pic"/>
     <h1>Hallo, ich bin Philipp</h1>
     <p>Student an der Universität Passau</p>
   </section>
@@ -84,15 +80,15 @@
   <section id="projects" class="container">
     <h2>Projekte</h2>
     <div class="projects-grid">
-      <div class="project-card">
+      <div class="project-card" data-cam-index="1">
         <h3>Bachelor Seminar in Operations Management: Spillover Effects in Competitive Facility Location</h3>
         <p>Gruppenarbeit (2 P) – Competitive Facility Location with Random Utility</p>
-        <a href="#" class="btn">Mehr erfahren</a>
+        <a href="#" class="btn load-model">Mehr erfahren</a>
       </div>
-      <div class="project-card">
+      <div class="project-card" data-cam-index="0">
         <h3>Management Science Practical Course</h3>
         <p>Einzelarbeit – Minimum-Cost-Flow Optimierungsproblem in Gurobi</p>
-        <a href="#" class="btn">Mehr erfahren</a>
+        <a href="#" class="btn load-model">Mehr erfahren</a>
       </div>
       <div class="project-card">
         <h3>Web &amp; Data Engineering</h3>
@@ -208,10 +204,9 @@
     <p>© 2025 Philipp Stockerl</p>
   </footer>
 
-  <!-- Scripts -->
-
-  <script src="script.js"></script>
-  <script src="headerScrolls.js" ></script>
+  <script type="module" src="/js/scroll.js"></script>
+  <script type="module" src="/js/script.js"></script>
 </body>
 </html>
+
 

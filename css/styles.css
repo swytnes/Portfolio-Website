@@ -1,4 +1,11 @@
-/* ==========================================================================
+/* am besten ganz oben im styles.css */
+.hero.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+/*==========================================================================
    1. Reset & Base Styles
    ========================================================================== */
 * {
@@ -11,7 +18,7 @@ html {
   line-height: 1.6;
   scroll-behavior: smooth;
   background: #000;    
-  color: #fff;         
+  color: #ffffff;         
 }
 a {
   text-decoration: none;
@@ -63,7 +70,7 @@ button {
    4. Navbar
    ========================================================================== */
 .navbar {
-  background: #0c00b4;
+  background: #8b8b8b;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   position: sticky;
   top: 0;
@@ -96,11 +103,11 @@ button {
 }
 .navbar.shrink {
   padding: 0.25rem 0;         
-  background: #0c00b4b2;
+  background: #8b8b8b;
   transition: padding 0.3s, background 0.3s;
 }
 .navbar.hidden {
-  transform: translateY(-10%);  
+  transform: translateY(-100%);  
   transition: transform 0.1s;
 }
 
@@ -111,10 +118,10 @@ button {
   position: relative;
   overflow: hidden;
   text-align: center;
-  padding: 4rem 0;
+  padding: 9rem 0;
 }
 #hero-canvas {
-  position: absolute;
+  margin-top: 1rem;
   top: 0; left: 0;
   width: 100%;
   height: 100%;
@@ -170,7 +177,7 @@ section h2 {
   box-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 .education-card h3, .education-card h4 {
-  color: #02a6ff;
+  color: #ffffff;
 }
 .education-card p {
   margin-top: 0.5rem;
@@ -182,9 +189,10 @@ section h2 {
    ========================================================================== */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  grid-template-columns: 1fr; /* eine Spalte */
   gap: 2rem;
-  position: relative; z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 .project-card {
   background: #2a2a2a;
@@ -204,7 +212,7 @@ section h2 {
   color: #ccc;
 }
 .btn {
-  background: #02a6ff;
+  background: #7a7a7a;
   color: #fff;
   padding: 0.6rem 1.2rem;
   border-radius: 4px;
@@ -212,7 +220,7 @@ section h2 {
   transition: background 0.3s;
 }
 .btn:hover {
-  background: #006bb3;
+  background: #474747;
 }
 
 /* ==========================================================================
@@ -224,7 +232,7 @@ section h2 {
 }
 .skill-group h3 {
   font-size: 1.5rem;
-  color: #02a6ff;
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 .skills-grid {
@@ -265,9 +273,9 @@ section h2 {
    ========================================================================== */
 .footer {
   text-align: center;
-  background: #2a2a2a;
+  background: #8b8b8b;
   padding: 2rem 0;
-  color: #888;
+  color: #ffffff;
   position: relative; z-index: 2;
 }
 
@@ -294,7 +302,7 @@ section h2 {
   .nav-links li {
     margin: 1rem 0;
   }
-}
+} 
 
 
 

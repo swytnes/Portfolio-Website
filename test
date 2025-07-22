@@ -1,0 +1,147 @@
+
+// ─────────── Three.js 3D‑Koordinatensystem ───────────
+const container = document.getElementById('three-container');
+
+// Szene, Kamera, Renderer
+const scene    = new THREE.Scene();
+const camera   = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
+camera.position.set( 100, 100, 100 );          // Kamera versetzt
+camera.lookAt( 0, 0, 0 );                      // Blick auf Ursprung
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize( window.innerWidth, window.innerHeight );
+container.appendChild( renderer.domElement );
+
+// Gitter‑Helper (xy‑Ebene)
+const gridXY = new THREE.GridHelper( 200, 20, 0xffffff, 0x555555 );
+scene.add( gridXY );
+
+// Zusätzliche Gitter für xz‑Ebene und yz‑Ebene
+const gridXZ = new THREE.GridHelper( 200, 20, 0xffffff, 0x555555 );
+gridXZ.rotation.x = Math.PI / 2;
+scene.add( gridXZ );
+
+const gridYZ = new THREE.GridHelper( 200, 20, 0xffffff, 0x555555 );
+gridYZ.rotation.z = Math.PI / 2;
+scene.add( gridYZ );
+
+// Achsen‑Helper (zeigt x‑, y‑, z‑Achse farbig)
+const axes = new THREE.AxesHelper( 100 );
+scene.add( axes );
+
+// Licht (optional, für besseres Shading falls Du 3D‑Objekte hinzufügst)
+const ambient = new THREE.AmbientLight(0x888888);
+scene.add( ambient );
+const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+dirLight.position.set(50, 100, 50);
+scene.add( dirLight );
+
+// Responsiv
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+});
+
+// Animation & Render‑Loop
+function animate3D() {
+  requestAnimationFrame( animate3D );
+  // Optional: leichte Kamerarotation um Ursprung
+  scene.rotation.y += 0.001;
+  renderer.render( scene, camera );
+}
+animate3D();
+
+// ─────────── Ende Three.js Setup ───────────
+
+
+
+// ─────────── TextParticle‑Klasse (Canvas) ───────────
+class TextParticle {
+  constructor() { this.reset(); }
+  reset() {
+    const m = messages[Math.floor(Math.random()*messages.length)];
+    this.name        = m.name;
+    this.description = m.description;
+    this.formula     = m.formulation;
+    this.x = Math.random()*canvas.width;
+    this.y = Math.random()*canvas.height;
+    this.age      = 0;
+    this.duration = 600;
+    this.alpha    = 0;
+  }
+  update() {
+    this.age++;
+    if      (this.age < 30)                 this.alpha = this.age/30;
+    else if (this.age > this.duration - 30) this.alpha = (this.duration-this.age)/30;
+    else                                    this.alpha = 1;
+    if (this.age >= this.duration)          this.reset();
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle   = '#fff';
+    ctx.font        = 'bold 18px monospace';
+    ctx.fillText(this.name,        this.x + offset, this.y);
+    ctx.fillText(this.description, this.x + offset, this.y + 22);
+    ctx.fillText(this.formula,     this.x + offset, this.y + 44);
+    ctx.restore();
+  }
+}
+
+// ─────────── Instanziere & Loop ───────────
+const textParticles = Array.from({ length: 2 }, () => new TextParticle());
+function animate() {
+  drawGrid();
+  textParticles.forEach(tp => { tp.update(); tp.draw(); });
+  requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ─────────── Throttled & Passive Scroll‑Listener ───────────
+let lastScrollY = window.scrollY;
+let ticking    = false;
+
+function onScroll() {
+  const header   = document.querySelector('.navbar');
+  const currentY = lastScrollY;
+
+  // 1) Nach unten scroll → ausblenden
+  if (currentY > 100 && currentY > window._prevScrollY) {
+    header.classList.add('hidden');
+  } else {
+    header.classList.remove('hidden');
+  }
+
+  // 2) Shrink‑Effekt ab 50px
+  if (currentY > 50) {
+    header.classList.add('shrink');
+  } else {
+    header.classList.remove('shrink');
+  }
+
+  window._prevScrollY = currentY;
+  ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+  lastScrollY = window.scrollY;
+  if (!ticking) {
+    window.requestAnimationFrame(onScroll);
+    ticking = true;
+  }
+}, { passive: true });
