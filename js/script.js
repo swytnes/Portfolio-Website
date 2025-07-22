@@ -4,6 +4,8 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.m
 const container = document.getElementById('three-container');
 const scene     = new THREE.Scene();
 const renderer  = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setClearColor(0x000000, 0);  // Schwarz mit 0% Deckkraft
+scene.background = null;
 
 // sorgt für High‑DPI/Zoom‑Support
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -96,6 +98,18 @@ document.querySelectorAll('.project-card').forEach(card => {
       isProgrammaticScroll = true;
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => { isProgrammaticScroll = false; }, 1000);
+
+      // View auf Szene (Projektdetailansicht)
+      // Für alle Achsen: scene.rotation.set(0, 0, 0);
+      //scene.rotation.x = 0;
+      //scene.rotation.y = 0;
+      //scene.rotation.z = 0;
+      scene.rotation.set(
+        Math.PI / 2,  // rotation.x
+        0,            // rotation.y
+        -Math.PI / 2  // rotation.z
+      );
+
       targetPreset = idx;
     });
   }
