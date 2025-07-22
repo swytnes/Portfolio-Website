@@ -35,25 +35,61 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.copy(camPresets[0].pos);
 camera.lookAt(0, 0, 0);
 
+
+
 // ─── 4) Hilfsobjekte (Helpers) und Licht hinzufügen
+//----------------------------------------------------
+
 // GridHelper zeigt ein Gitter in der XY-Ebene
 scene.add(new THREE.GridHelper(200, 20, 0xffffff, 0x555555));
+
 // Zweites Gitter in XZ-Ebene durch Rotation
 const gridXZ = new THREE.GridHelper(200, 20, 0xffffff, 0x555555);
 gridXZ.rotation.x = Math.PI / 2;
 scene.add(gridXZ);
+
 // Drittes Gitter in YZ-Ebene
 const gridYZ = new THREE.GridHelper(200, 20, 0xffffff, 0x555555);
 gridYZ.rotation.z = Math.PI / 2;
 scene.add(gridYZ);
+
 // AxesHelper zeigt farbige Achsen (X=rot, Y=grün, Z=blau)
-scene.add(new THREE.AxesHelper(100));
+// Achsen Einstellungen
+const axisLength = 500;
+const radius     = 0.5;      
+const radialSegs = 8;
+
+// X‑Achse (rot)
+const xMat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+const xGeo = new THREE.CylinderGeometry(radius, radius, axisLength, radialSegs);
+const xMesh = new THREE.Mesh(xGeo, xMat);
+xMesh.rotation.z = -Math.PI / 2;
+xMesh.position.x = axisLength / 2;
+scene.add(xMesh);
+
+// Y‑Achse (grün)
+const yMat = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const yGeo = xGeo.clone();
+const yMesh = new THREE.Mesh(yGeo, yMat);
+yMesh.position.y = axisLength / 2;
+scene.add(yMesh);
+
+// Z‑Achse (blau)
+const zMat = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+const zGeo = xGeo.clone();
+const zMesh = new THREE.Mesh(zGeo, zMat);
+zMesh.rotation.x = Math.PI / 2;
+zMesh.position.z = axisLength / 2;
+scene.add(zMesh);
+
 // Umgebungslicht für Basisbeleuchtung
 scene.add(new THREE.AmbientLight(0x888888));
+
 // DirectionalLight für Schatten und Highlights
 const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
 dirLight.position.set(50, 100, 50);
 scene.add(dirLight);
+
 
 // 5) Flags
 let scrollT = 0;
@@ -135,7 +171,24 @@ function animate() {
 animate();
 
 
+// Bei Window Scroll: Resize/ Reload Koordinatensystem!
+window.addEventListener('resize', () => {
+  // 1. Renderer und Kamera neu an die Fenstergröße anpassen
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
 
+  // 2. Kamera wieder auf das erste Preset zurücksetzen
+  camera.position.copy(camPresets[0].pos);
+  camera.lookAt(0, 0, 0);
+
+  // 3. Scroll‑State löschen, damit er nicht dazwischenfunkt
+  scrollT = 0;
+  targetPreset = null;
+
+  // (Optional) Szene‑Rotation zurücksetzen
+  scene.rotation.set(0, 0, 0);
+});
 
 
 
