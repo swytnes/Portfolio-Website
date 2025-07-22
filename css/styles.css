@@ -226,6 +226,13 @@ section h2 {
 /* ==========================================================================
    9. Skills Section
    ========================================================================== */
+.skills-section {
+  background-color: rgba(90, 90, 90, 0.952); /* z.B. schwarzer Hintergrund mit 50% Deckkraft */
+  padding: 2rem;
+  border-radius: 8px;
+  position: relative;  /* damit deine inneren .skill-group z-index wirken */
+}
+
 .skill-group {
   margin-bottom: 3rem;
   position: relative; z-index: 2;
@@ -255,6 +262,12 @@ section h2 {
 /* ==========================================================================
    10. Contact Section
    ========================================================================== */
+.contact-section {
+  background-color: rgba(90, 90, 90, 0.952); /* z.B. schwarzer Hintergrund mit 50% Deckkraft */
+  padding: 3rem;
+  border-radius: 8px;
+  position: relative;  /* damit deine inneren .skill-group z-index wirken */
+}
 .social-icons {
   display: flex; gap: 1rem;
   margin-bottom: 2rem;
