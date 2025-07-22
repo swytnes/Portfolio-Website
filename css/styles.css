@@ -16,7 +16,7 @@ html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   scroll-behavior: smooth;
-  background: #000;    
+  background: #000000;    
   color: #ffffff;         
 }
 a {
@@ -28,6 +28,8 @@ button {
   background: none;
   cursor: pointer;
 }
+
+
 
 /* ==========================================================================
    2. Full‑Page Grid‑Canvas & TextParticle Overrides
@@ -69,7 +71,7 @@ button {
    4. Navbar
    ========================================================================== */
 .navbar {
-  background: #8b8b8b;
+  background: #000000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   position: sticky;
   top: 0;
@@ -186,6 +188,13 @@ section h2 {
 /* ==========================================================================
    8. Projects Section
    ========================================================================== */
+.projects-section {
+  background-color: rgba(90, 90, 90, 0.952);
+  padding: 2rem;
+  border-radius: 8px;
+  position: relative;  
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr; /* eine Spalte */
@@ -225,12 +234,14 @@ section h2 {
 /* ==========================================================================
    9. Skills Section
    ========================================================================== */
+/*
 .skills-section {
   background-color: rgba(90, 90, 90, 0.952);
   padding: 2rem;
   border-radius: 8px;
   position: relative;  
 }
+  */
 
 .skill-group {
   margin-bottom: 3rem;

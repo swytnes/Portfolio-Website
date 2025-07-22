@@ -1,5 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
 
+
 // ─── 1) Canvas-Setup
 const container = document.getElementById('three-container');
 const scene     = new THREE.Scene();
@@ -14,10 +15,11 @@ container.appendChild(renderer.domElement);
 
 // ─── 2) Kamera‑Presets
 const camPresets = [
-  { pos: new THREE.Vector3(100,100,100), rotate:true  },
+  { pos: new THREE.Vector3(200,100,100), rotate:true  },
   { pos: new THREE.Vector3(0,  200,  0), rotate:false },
   { pos: new THREE.Vector3(0,  200,  0), rotate:false  },
-  { pos: new THREE.Vector3(50, 50,   50), rotate:true  }
+  { pos: new THREE.Vector3(50, 50,   50), rotate:true  },
+  { pos: new THREE.Vector3(300, 200, 0), rotate:true }    
 ];
 
 const camera = new THREE.PerspectiveCamera(
@@ -53,6 +55,9 @@ scene.add(gridXZ);
 const gridYZ = new THREE.GridHelper(size, divisions, colorMain, colorGrid);
 gridYZ.rotation.z = Math.PI / 2;
 scene.add(gridYZ);
+
+
+
 
 // Grids halbtransparent machen:
 [gridXY, gridXZ, gridYZ].forEach(grid => {
@@ -99,14 +104,9 @@ let scrollT = 0;
 let targetPreset = null;
 let isProgrammaticScroll = false;
 
-// Scroll-Modus
-window.addEventListener('scroll', () => {
-  if (isProgrammaticScroll) return;
-  targetPreset = null;
-  const scrollY   = window.scrollY;
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  scrollT = Math.min(1, Math.max(0, scrollY / maxScroll));
-});
+
+
+
 
 // ─── 4) Klick‑Handler: dynamisch Module laden + scroll & Kamera reset
 let currentModelGroup = null;
@@ -146,6 +146,77 @@ document.querySelectorAll('.project-card').forEach(card => {
     });
   }
 });
+
+// Skills Modul laden
+let skillsGroup = null;
+
+// 1) Skills‑Modul sofort laden (aber zunächst versteckt)
+(async () => {
+  const mod = await import('./skills.js');  // dein js/skills.js
+  const g   = new THREE.Group();
+  // Position initial hochsetzen
+  g.position.y = 200;
+  scene.add(g);
+  skillsGroup = g;
+  mod.loadModel(g);
+})();
+
+
+window.addEventListener('scroll', () => {
+  // 1) Programmatic Scroll ausschließen
+  if (isProgrammaticScroll) return;
+
+  // 2) Kamera‑Preset via scrollT
+  targetPreset = null;
+  const scrollY   = window.scrollY;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  scrollT = Math.min(1, Math.max(0, scrollY / maxScroll));
+
+  // 3) SkillsGroup muss existieren
+  if (!skillsGroup || !skillsGroup.children) return;
+
+  // 4) Section‑Bounds präzise abfragen
+  const sec  = document.getElementById('skills');
+  const rect = sec.getBoundingClientRect();
+  const inView = rect.top < window.innerHeight && rect.bottom > 0;
+
+  if (inView) {
+    // 5) Kamera auf Skills‑Preset umschalten
+    targetPreset = 4;
+
+    // 6) Normierten Fortschritt t ∈ [0,1] berechnen
+    const total = window.innerHeight + sec.offsetHeight;
+    const t     = Math.min(1,
+                    Math.max(0,
+                      (window.innerHeight - rect.top) / total
+                    )
+                  );
+
+    // 7) Icons einblenden und per Lerp nach unten fliegen
+    skillsGroup.children.forEach(obj => {
+      if (obj.material) {
+        obj.material.opacity = t;
+        obj.position.y      = THREE.MathUtils.lerp(200, 0, t);
+      }
+    });
+
+  } else {
+    // 8) Icons zurücksetzen
+    skillsGroup.children.forEach(obj => {
+      if (obj.material) {
+        obj.material.opacity = 0;
+        obj.position.y      = 200;
+      }
+    });
+  }
+});
+
+
+
+
+
+
+
 
 
 // ─── 5) Animations‑Loop

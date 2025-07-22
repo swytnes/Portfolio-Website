@@ -1,4 +1,4 @@
-// js/models/model1.js
+// js/model2.js
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
 
 export function loadModel(parent) {
