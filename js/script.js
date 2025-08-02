@@ -49,6 +49,7 @@ scene.add(gridXY);
 
 // XZ‐Ebene
 const gridXZ = new THREE.GridHelper(size, divisions, colorMain, colorGrid);
+gridXZ.rotation.y = - Math.PI / 2;
 scene.add(gridXZ);
 
 // YZ‐Ebene
