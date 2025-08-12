@@ -329,3 +329,26 @@ section h2 {
 
 
 
+
+
+
+
+
+
+.my-swiper {
+  width:30%;
+  height: 600px;        /* Höhe nach Wunsch */
+  perspective: 1px;  /* macht den 3D-Eindruck stärker */
+}
+
+.swiper-slide {
+  background: #fffffff1;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 1.5rem;
+  /* zentriert Content, optional */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

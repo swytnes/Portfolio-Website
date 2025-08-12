@@ -1,0 +1,33 @@
+:root{
+  /* Colors */
+  --bg:#0b1120; --text:#e5e7eb;
+  --hairline:rgba(255,255,255,.12);
+  --card-bg:rgba(255,255,255,.08);
+  --card-border:rgba(255,255,255,.16);
+  --card-shadow:0 10px 30px rgba(0,0,0,.25);
+  --blur-card:blur(6px) saturate(120%);
+  --blur-header:blur(8px) saturate(140%);
+
+  /* Caps & scales */
+  --page-max:1400px;         /* page width cap */
+  --panel-max:720px;         /* default card width cap */
+
+  /* Fluid gutters (override per section as needed) */
+  --gutter-left:  clamp(1rem, 8vw, 22rem);
+  --gutter-right: clamp(1rem, 8vw, 22rem);
+
+  /* Spacing & type */
+  --space: clamp(1rem, 2vw, 2rem);
+  --h1: clamp(2rem, 3.5vw, 3.5rem);
+  --h2: clamp(1.5rem, 2.2vw, 2.25rem);
+  --p : clamp(.95rem, 1.1vw, 1.05rem);
+}
+
+/* Optional wider-screen tuning */
+@media (width >= 1600px){
+  :root{
+    --panel-max:840px;
+    --gutter-left:  clamp(2rem, 12vw, 28rem);
+    --gutter-right: clamp(2rem, 12vw, 28rem);
+  }
+}

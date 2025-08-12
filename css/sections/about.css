@@ -1,0 +1,8 @@
+/* About: basic centered card */
+#about { align-items: center; }
+#about .section-inner {
+  max-width: min(100%, 900px);
+  --offset-x: 0px;
+  --offset-y: 0px;
+}
+

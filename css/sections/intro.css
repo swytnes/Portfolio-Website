@@ -1,0 +1,23 @@
+/* Intro: centered hero card, a bit wider */
+#intro {
+  align-items: center; /* top | center | end */
+}
+#intro .section-inner {
+  max-width: min(100%, 1000px);
+  text-align: center;
+  --offset-x: 0px;
+  --offset-y: 0px;
+}
+
+/* Big hero identity right under the navbar */
+#intro .hero { display: flex; align-items: center; gap: 1.25rem; }
+#intro .hero-avatar {
+  width: clamp(96px, 14vw, 132px);
+  height: clamp(96px, 14vw, 132px);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,.25);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+#intro .hero-text h1 { margin: 0 0 .25rem; }
+#intro .hero-text p  { margin: 0; opacity: .9; }

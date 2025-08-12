@@ -1,0 +1,11 @@
+/* Education: centered; roomy card */
+#education { align-items: center; }
+#education .section-inner {
+  max-width: min(100%, 960px);
+  --offset-x: 0px;
+  --offset-y: 0px;
+}
+
+/* Optional: tidy spacing inside the card */
+#education .section-inner > * + * { margin-top: .75rem; }
+

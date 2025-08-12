@@ -1,0 +1,39 @@
+/* Split layouts (panel left/right beside the 3D grid) */
+.section.layout-split-left{
+  display:grid;
+  grid-template-columns: var(--gutter-left) minmax(320px, var(--panel-max)) 1fr;
+  gap:var(--space); align-items:center;
+}
+.section.layout-split-right{
+  display:grid;
+  grid-template-columns: 1fr minmax(320px, var(--panel-max)) var(--gutter-right);
+  gap:var(--space); align-items:center;
+}
+
+/* Put the panel in the middle column */
+.section .panel,
+#projects-root,
+#certs-root{
+  grid-column:2;
+  max-width:var(--panel-max);
+  justify-self:start; /* start | center | end */
+}
+
+/* Fine nudge per section (override on .panel) */
+.section .panel{
+  --offset-x:0px; --offset-y:0px; /* +x right, +y down */
+  position:relative;
+  transform:translate(var(--offset-x), var(--offset-y));
+}
+
+/* Stack the layout when a section gets narrow */
+@container (max-width:800px){
+  .section.layout-split-left,
+  .section.layout-split-right { grid-template-columns:1fr; }
+
+  .section .panel,
+  #projects-root,
+  #certs-root{
+    grid-column:1; justify-self:center; max-width:min(100%, 560px);
+  }
+}

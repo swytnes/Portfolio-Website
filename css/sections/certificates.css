@@ -1,0 +1,227 @@
+/* =========================================================
+   Certificates section
+   - Left rail (title + up/down)
+   - Vertical divider
+   - Cover-flow style carousel on the right
+   =======================================================*/
+
+/* ---------- Sizing knobs for this section ---------- */
+#certificates{
+  /* Move the whole panel further LEFT by growing this gutter */
+  --gutter-left: clamp(3rem, 8vw, 20rem);
+
+  /* Max width of the glass panel (shrink to keep clear of the PDF) */
+  --panel-max: 640px;
+
+  /* Carousel “stage” size (also used for panel min-height) */
+  --cert-stage-w: 560px;   /* <- change to make the carousel wider/narrower */
+  --cert-stage-h: 340px;   /* <- stage height */
+  --cert-gap:     84px;    /* vertical gap between cells */
+}
+
+/* Keep content inside the rounded card; make sure stage fits */
+#certificates .panel{
+  overflow: hidden;
+  padding-right: clamp(12px, 2vw, 18px);
+  min-height: calc(var(--cert-stage-h) + 3rem);
+}
+
+/* Hide the original H2 (we render our own in the left rail) */
+#certificates .panel > h2 { display: none; }
+
+/* =========================================================
+   Grid wrapper: left rail | divider | carousel
+   =======================================================*/
+#certs-root .certs-grid{
+  /* three columns:
+     - 220px rail (enough room so text/arrows don’t overlap)
+     - 1px divider
+     - carousel column (auto)
+  */
+  display: grid;
+  grid-template-columns: 220px 1px 1fr;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.75rem);
+
+  /* center the whole three-column block inside the panel */
+  width: 100%;
+  max-width: calc(220px + 1px + var(--cert-stage-w) + 2 * clamp(1rem, 2vw, 1.75rem));
+  margin-inline: auto;
+}
+
+/* ---------- Left rail (title + up/down) ---------- */
+#certs-root .certs-aside{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;   /* center title vertically */
+  gap: 1rem;
+  justify-self: end;         /* snug against the divider */
+}
+
+#certs-root .certs-title{
+  margin: 0;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: .2px;
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+}
+
+/* Up/Down buttons */
+#certs-root .nav-btn{
+  width: 44px; height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(6px);
+  display: grid; place-items: center;
+  cursor: pointer; color: inherit;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+#certs-root .nav-btn:hover   { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.32); }
+#certs-root .nav-btn:active  { transform: translateY(1px) scale(.98); }
+#certs-root .nav-btn:disabled{ opacity:.45; cursor: default; transform:none; }
+
+/* Vertical divider */
+#certs-root .certs-divider{
+  width: 1px; height: 100%;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,.26), transparent);
+  opacity: .6;
+}
+
+/* =========================================================
+   Cover-flow carousel (right column)
+   =======================================================*/
+#certs-root .cf{
+  /* Stage sizing — inherits the section knobs */
+  --stage-w: var(--cert-stage-w);
+  --stage-h: var(--cert-stage-h);
+  --gap:     var(--cert-gap);
+
+  /* Card width variable (used to shift the stage) */
+  --cell-w: clamp(320px, 72%, 480px);
+  /* small gap from the divider */
+  --rail-gap: clamp(8px, 1.2vw, 16px);
+
+  /* Look/feel */
+  --tilt: 12deg;
+  --min-scale: 0.78;
+  --blur: 0.6px;
+
+  grid-column: 3;                 /* right column */
+  position: relative;
+  width: min(100%, var(--stage-w));
+  height: var(--stage-h);
+  perspective: 1000px;
+  user-select: none;
+
+  /* put the stage flush against the divider (we shift the inner stage instead) */
+  justify-self: start;
+}
+
+#certs-root .cf .stage{
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  overflow: visible;
+
+  /* --- Key change ---
+     Shift the whole stage to the right by half a card width + tiny gap.
+     Cells can stay centered (left:50% / translateX(-50%)) and won’t drift back.
+  */
+  transform: translateX(calc(var(--cell-w) / 2 + var(--rail-gap)));
+}
+
+/* Cards */
+#certs-root .cf .cell{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);   /* keep cells centered within the stage */
+
+  display: block;
+  box-sizing: border-box;
+
+  width: var(--cell-w);          /* use the same variable */
+  height: 72px;
+  padding: .85rem 1.1rem;
+  border-radius: .9rem;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.08);
+  color: var(--text, #e5e7eb);
+  backdrop-filter: blur(6px) saturate(120%);
+  box-shadow: 0 10px 28px rgba(0,0,0,.22);
+  display: grid; align-content: center; text-align: left;
+  transition: transform .25s ease, opacity .2s ease, filter .2s ease, border-color .2s ease;
+  cursor: pointer;
+  z-index: 1;                     /* sits above stage background */
+}
+
+/* Keep text above any overlays/highlights */
+#certs-root .cf .cell > *{
+  position: relative;
+  z-index: 2;
+}
+#certs-root .cf .cell::before{
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  z-index: 1;
+  background: radial-gradient(120% 120% at 50% -20%, rgba(255,255,255,.06), transparent 60%);
+}
+
+#certs-root .cf .cell .title{
+  display: block;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+#certs-root .cf .cell[aria-selected="true"]{
+  border-color: rgba(255,255,255,.28);
+  box-shadow: 0 16px 40px rgba(0,0,0,.30);
+}
+
+/* Small “open” button on active cell (optional) */
+#certs-root .cf .open{
+  position: absolute; right: .5rem; top: 0; bottom: 0; margin: auto 0;
+  width: 36px; height: 36px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.10);
+  display: none; place-items: center;
+}
+#certs-root .cf .cell[aria-selected="true"] .open{ display: grid; }
+
+/* =========================================================
+   Responsive — stack the rail above the carousel
+   =======================================================*/
+@container (max-width: 700px){
+  #certs-root .certs-grid{
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+  #certs-root .certs-aside{
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  #certs-root .certs-divider{ display: none; }
+  #certs-root .cf{
+    width: 100%;
+    --stage-w: 100%;
+    --cell-w: clamp(300px, 88vw, 520px);
+    --stage-h: clamp(260px, 42vh, 340px);
+    --gap: clamp(60px, 7vh, var(--cert-gap));
+    margin-top: .75rem;
+    justify-self: stretch;
+  }
+  /* When stacked, don’t shift the stage sideways */
+  #certs-root .cf .stage{
+    transform: none;
+  }
+}
+
+
+
+
+

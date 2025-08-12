@@ -1,0 +1,39 @@
+/* Layering: Three.js canvas behind content */
+#three-container { position:fixed; inset:0; z-index:0; pointer-events:none; }
+header, main, footer { position:relative; z-index:1; }
+
+/* Header / nav */
+header {
+  position:sticky; top:0;
+  padding:.75rem 1rem;
+  border-bottom:1px solid var(--hairline);
+  background:rgba(11,17,32,.35);
+  backdrop-filter:var(--blur-header);
+}
+nav { display:flex; gap:1rem; max-width:72rem; margin:0 auto; align-items:center; }
+nav a:hover { text-decoration:underline; }
+
+/* Main / sections */
+main { min-height:100vh; max-width:var(--page-max); margin-inline:auto; scroll-snap-type:y mandatory; }
+
+section {
+  min-height:100vh;
+  scroll-snap-align:start;
+  display:grid; place-items:center;
+  padding:4rem 1rem;
+  container-type:inline-size; /* enables @container queries per-section */
+}
+
+/* Reusable “glass” card */
+.section-inner, .panel {
+  width:min(100%, 960px);
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
+  border-radius:1rem;
+  padding:clamp(1rem, 2.5vw, 2rem);
+  box-shadow:var(--card-shadow);
+  backdrop-filter:var(--blur-card);
+}
+
+/* Footer */
+footer{ padding:1rem; text-align:center; border-top:1px solid var(--hairline); }

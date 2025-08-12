@@ -1,0 +1,177 @@
+/* =========================================================
+   Projects — fully scoped (no carousel.css needed)
+   ======================================================= */
+
+/* Layout: push panel to the right in your split layout */
+#projects{
+  --gutter-right: 0;
+  padding-right: max(12px, env(safe-area-inset-right));
+}
+#projects.layout-split-right{ column-gap: 0; }
+
+/* Panel sizing + inner margins (breathing room) */
+#projects .panel{
+  justify-self: center;                 /* center panel; use end/start if you like */
+  position: relative;                   /* anchor for arrows */
+  --panel-offset-x: 0px;
+  --panel-offset-y: 0px;
+  width: min(1180px, calc(100% - 6vw));
+  padding-inline: clamp(16px, 2.5vw, 28px);
+  overflow: hidden;                     /* clip glows/shadows neatly */
+}
+
+/* ===== Local “carousel base” (scoped) ===== */
+#projects .carousel{
+  position: relative;
+  isolation: isolate;
+  --gap: 1.1rem;
+  --card-w: clamp(280px, 52vmin, 520px);
+  --card-pad: clamp(.9rem, 2.2vmin, 1.25rem);
+}
+
+/* Hide native scrollbars on the inner rail (defensive) */
+#projects .carousel .rail{ scrollbar-width:none; }
+#projects .carousel .rail::-webkit-scrollbar{ display:none; }
+
+/* ===== Cover-flow variant ===== */
+#projects .carousel.coverflow{
+  /* Stage & behavior knobs */
+  --card-h: 320px;
+  --max-spread: 4;               /* neighbors kept to each side */
+  --center-ratio: .42;           /* 0.5 = true center; adjust to taste */
+  --spacing: calc(var(--card-w) * 1.12);
+  --scale-step: .10;
+  --opacity-step: .10;
+  --blur-step: .24px;
+  --tilt: 8deg;
+  perspective: 900px;
+}
+
+/* Replace horizontal grid rail with a positioned stage */
+#projects .carousel.coverflow .rail{
+  position: relative;
+  display: block;
+  height: var(--card-h);
+  overflow: visible;
+  padding: 0;
+}
+
+/* Cards (absolute); JS augments transform */
+#projects .carousel.coverflow .card{
+  position: absolute;
+  top: 50%; left: 50%;
+  width: var(--card-w);
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  will-change: transform, filter, opacity;
+  transition: transform .35s ease, filter .35s ease, opacity .35s ease;
+
+  /* Anti-ghosting: neighbors are flat (no glass) */
+  backdrop-filter: none !important;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:1rem;
+  padding:var(--card-pad);
+  box-shadow:0 10px 30px rgba(0,0,0,.22);
+}
+#projects .carousel.coverflow .card[aria-selected="true"]{
+  backdrop-filter: var(--blur-card, blur(6px)); /* hero has glass */
+  background: rgba(255,255,255,.12);
+  opacity: 1 !important;
+  filter: none !important;
+  z-index: 1000 !important;
+  transform: translate(-50%,-50%) scale(1.02); /* subtle lift */
+  box-shadow:0 16px 40px rgba(0,0,0,.30);
+  border-color:rgba(255,255,255,.28);
+}
+
+/* Disable the global soft-edge film for Projects cover-flow */
+#projects .carousel.coverflow::before,
+#projects .carousel.coverflow::after{ display: none !important; }
+
+/* ===== Chips & buttons used inside project cards ===== */
+#projects .chips{ display:flex; gap:.4rem; flex-wrap:wrap; margin:.5rem 0 .8rem; }
+#projects .chips span{
+  font-size:.8rem; opacity:.85;
+  border:1px solid rgba(255,255,255,.18);
+  padding:.15rem .5rem; border-radius:.6rem;
+}
+#projects .btn{
+  padding:.55rem .9rem; border-radius:.7rem; border:0; cursor:pointer;
+  background:#e5e7eb; color:#0b1120; font-weight:600;
+}
+#projects .btn.secondary{
+  background:transparent; color:inherit;
+  border:1px solid rgba(255,255,255,.26);
+}
+#projects .btn:focus-visible{ outline:2px solid #93c5fd; outline-offset:2px; }
+
+/* ===== Arrows (visual style + placement on panel edges) ===== */
+#projects .panel .arrow{
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  transform: translateY(-50%);
+  inset-block: auto; margin: 0;
+  width: 44px; height: 44px; border-radius:999px;
+  border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.10); backdrop-filter:blur(6px);
+  display:grid; place-items:center; cursor:pointer;
+}
+#projects .panel .arrow.prev{ left: 12px; }
+#projects .panel .arrow.next{ right: 12px; }
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 1200px){
+  #projects .panel{ width: min(1060px, calc(100% - 5vw)); }
+}
+@media (max-width: 900px){
+  #projects .panel{
+    width: min(100%, calc(100% - 4vw));
+    padding-inline: clamp(12px, 3vw, 20px);
+  }
+  #projects .carousel.coverflow{
+    --center-ratio: .5;                /* center hero on narrow screens */
+    --spacing: calc(var(--card-w) * 1.02);
+    --blur-step: .18px;
+  }
+}
+
+/* === Fit everything inside the panel (no cut-offs) === */
+#projects .panel{
+  /* give the title + stage enough vertical space */
+  padding-block: clamp(14px, 2.2vw, 26px);
+  /* title (~56–68px) + stage height + buffer */
+  min-height: calc(var(--card-h) + 120px);
+}
+
+/* nudge the deck down a bit below the "Projects" heading */
+#projects .carousel{ margin-top: clamp(8px, 1.2vh, 16px); }
+
+/* keep the deck away from the rounded edges */
+#projects .panel{
+  /* a touch more side breathing room so cards never kiss the border */
+  padding-inline: clamp(18px, 3vw, 32px);
+}
+
+/* === Make the first (active) card fully readable === */
+#projects .carousel.coverflow{
+  /* more spread and stronger falloff so neighbors don't wash over the hero */
+  --spacing: calc(var(--card-w) * 1.22);  /* was 1.12 */
+  --opacity-step: .16;                    /* was .10 */
+  --blur-step: .40px;                     /* was .24px */
+  --center-ratio: .48;                    /* sit the hero nearer the middle */
+}
+
+/* neighbors stay flat and dimmer */
+#projects .carousel.coverflow .card{
+  background: rgba(255,255,255,.05);      /* slightly lighter but flatter */
+}
+
+/* hero gets a denser plate and sits clearly above others */
+#projects .carousel.coverflow .card[aria-selected="true"]{
+  background: rgba(255,255,255,.18);      /* stronger plate for text contrast */
+  backdrop-filter: var(--blur-card, blur(6px));
+  box-shadow: 0 18px 44px rgba(0,0,0,.34);
+  z-index: 1100 !important;
+}

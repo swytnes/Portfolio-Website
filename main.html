@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Philipp Stockerl — Portfolio</title>
+
+  <link rel="stylesheet" href="css/00-tokens.css">
+  <link rel="stylesheet" href="css/10-base.css">
+  <link rel="stylesheet" href="css/20-structure.css">
+  <link rel="stylesheet" href="css/30-layout-split.css">
+  <link rel="stylesheet" href="css/sections/intro.css">
+  <link rel="stylesheet" href="css/sections/about.css">
+  <link rel="stylesheet" href="css/sections/education.css">
+  <link rel="stylesheet" href="css/sections/projects.css">
+  <link rel="stylesheet" href="css/sections/certificates.css">
+  <link rel="stylesheet" href="css/sections/contact.css">
+
+  <meta name="description" content="Portfolio website of Philipp Stockerl" />
+</head>
+<body>
+  <a class="sr-only" href="#intro">Skip to content</a>
+
+  <!-- Three.js background -->
+  <div id="three-container"></div>
+
+  <!-- Header / Nav -->
+  <header>
+    <nav aria-label="Primary" class="nav">
+      <!-- Compact brand (hidden at top; fades in on scroll) -->
+      <a href="#intro" class="brand">
+        <img src="Assets/pictureGrey.png" alt="Philipp Stockerl" class="brand-avatar" />
+        <span class="brand-name">Philipp Stockerl</span>
+      </a>
+
+      <!-- Nav links -->
+      <div class="links">
+        <a href="#intro">Intro</a>
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#certificates">Certificates</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Sections (ordered) -->
+  <main>
+    <!-- Intro (big identity right under the navbar) -->
+    <section id="intro" class="section" data-cam-index="0" aria-label="Introduction">
+      <div class="section-inner hero">
+        <img
+          src="Assets/pictureGrey.png"
+          alt="Portrait of Philipp Stockerl"
+          class="hero-avatar"
+        />
+        <div class="hero-text">
+          <h1>Philipp Stockerl</h1>
+          <p>Short tagline goes here. CTA and quick links later.</p>
+        </div>
+      </div>
+    </section>
+
+  <section id="about" class="section" data-cam-index="0" aria-label="About me">
+    <div class="section-inner">
+      <h2>About me</h2>
+      <p>One or two paragraphs about who you are and what you do.</p>
+    </div>
+  </section>
+
+  <section id="education" class="section" data-cam-index="0" aria-label="Education">
+    <div class="section-inner">
+      <h2>Education</h2>
+      <p>List your degrees, courses, highlights.</p>
+    </div>
+  </section>
+
+<!-- Projects (panel slides RIGHT by increasing --gutter-right) -->
+<section
+  id="projects"
+  class="section layout-split-right"
+  data-cam-index="3">
+  <div
+    class="section-inner panel">
+    <h2>Projects</h2>
+    <div id="projects-root"></div>
+  </div>
+</section>
+
+<!-- Certificates (panel stays LEFT; increase --gutter-left to push it further LEFT) -->
+<section
+  id="certificates"
+  class="section layout-split-left"
+  data-cam-index="4">
+  <div
+    class="section-inner panel">
+    <h2>Certificates</h2>
+    <div id="certs-root"></div>
+  </div>
+</section>
+
+  <section id="contact" class="section" data-cam-index="5" aria-label="Contact me">
+    <div class="section-inner">
+      <h2>Contact me</h2>
+      <p>Email, links, and a simple form (later).</p>
+    </div>
+  </section>
+
+  </main>
+
+  <footer>© <span id="year"></span> Philipp Stockerl</footer>
+
+  <!-- Hook up your JS later; these are placeholders -->
+  <script type="module" src="javaScript/main.js">
+    // Set footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Example: once you add your modules...
+    // import { mount, start, setDesiredCamera, setWorldRotation } from './js/threeScene.js';
+    // import { camPresets } from './js/cameraPresets.js';
+    // mount(document.getElementById('three-container')); start();
+    // setDesiredCamera(camPresets[0].pos); setWorldRotation(camPresets[0].rotate);
+  </script>
+</body>
+</html>
+
+
