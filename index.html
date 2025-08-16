@@ -17,6 +17,14 @@
   <link rel="stylesheet" href="css/sections/contact.css">
 
   <meta name="description" content="Portfolio website of Philipp Stockerl" />
+  <script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/"
+  }
+}
+</script>
 </head>
 <body>
   <a class="sr-only" href="#intro">Skip to content</a>
@@ -81,10 +89,15 @@
   id="projects"
   class="section layout-split-right"
   data-cam-index="3">
-  <div
-    class="section-inner panel">
+
+  <div class="section-inner panel">
     <h2>Projects</h2>
-    <div id="projects-root"></div>
+
+    <!-- NEW: inner wrapper that does NOT clip the carousel -->
+    <div class="stage">
+      <div id="projects-root"></div>
+    </div>
+    <!-- /stage -->
   </div>
 </section>
 

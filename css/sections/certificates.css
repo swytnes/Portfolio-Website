@@ -8,22 +8,29 @@
 /* ---------- Sizing knobs for this section ---------- */
 #certificates{
   /* Move the whole panel further LEFT by growing this gutter */
-  --gutter-left: clamp(3rem, 8vw, 20rem);
+  --gutter-left: 0px;
 
   /* Max width of the glass panel (shrink to keep clear of the PDF) */
-  --panel-max: 640px;
+  --panel-max: 820px;
 
   /* Carousel “stage” size (also used for panel min-height) */
   --cert-stage-w: 560px;   /* <- change to make the carousel wider/narrower */
   --cert-stage-h: 340px;   /* <- stage height */
   --cert-gap:     84px;    /* vertical gap between cells */
+  
 }
 
-/* Keep content inside the rounded card; make sure stage fits */
+/* Move + size the outer glass panel */
 #certificates .panel{
-  overflow: hidden;
-  padding-right: clamp(12px, 2vw, 18px);
+  position: relative;
+  margin-left: var(--gutter-left);                     /* 🔹 push the whole box */
+  width: min(var(--panel-max), calc(100% - 4vw - var(--gutter-left)));
+  padding: clamp(14px, 2.2vw, 26px) clamp(18px, 3vw, 32px);
   min-height: calc(var(--cert-stage-h) + 3rem);
+  border-radius: 1rem;
+  background: rgba(255,255,255,.04);
+  backdrop-filter: blur(10px);
+  overflow: hidden;                                     /* 🔒 clip contents     */
 }
 
 /* Hide the original H2 (we render our own in the left rail) */

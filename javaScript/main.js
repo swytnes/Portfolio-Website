@@ -17,14 +17,18 @@ import { initCertificates } from './certificatesSection.js';
 
 // ---------- Three.js layer ----------
 const container = document.getElementById('three-container');
-if (!container) console.warn('[main] #three-container not found');
-else { mount(container); start(); }
+if (!container) {
+  console.warn('[main] #three-container not found');
+} else {
+  mount(container);
+  start();
+}
 
 // ---------- app state ----------
 const mediaReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)');
-let prefersReduced   = !!mediaReduced?.matches;
-let lastPresetIndex  = 0;
-let activeSectionId  = null;
+let prefersReduced      = !!mediaReduced?.matches;
+let lastPresetIndex     = 0;
+let activeSectionId     = null;
 let currentProjectGroup = null;
 let currentCertGroup    = null;
 
@@ -38,6 +42,67 @@ function applyPreset(index) {
   lastPresetIndex = index;
 }
 
+// universal dynamic load helper that supports both new & legacy loader signatures
+async function loadWithCompat(mod, section, item) {
+  // Preferred: universal loader expects the entire project/cert object
+  //   await mod.load(item)
+  // Fallback: legacy signature
+  //   await mod.load(addToWorld, item.opts)
+
+  if (typeof mod.load !== 'function') {
+    throw new Error('Loader module has no load() export');
+  }
+
+  let obj = null;
+
+  // Try universal signature first
+  try {
+    const maybe = await mod.load(item);
+    if (maybe) obj = maybe;
+  } catch (e) {
+    // If the module explicitly throws because it expects legacy args, ignore
+    // and try the legacy path below.
+  }
+
+  // Legacy fallback if nothing returned yet
+  if (!obj) {
+    try {
+      obj = await mod.load(addToWorld, item?.opts);
+    } catch (e2) {
+      // If still failing, rethrow the original problem
+      throw e2;
+    }
+  }
+
+  // If the loader didn’t return an object (it may have added directly),
+  // try a conventional getter if provided.
+  if (!obj && typeof mod.getCurrent === 'function') {
+    obj = mod.getCurrent();
+  }
+
+  // If there’s an explicit unload() export, wire it into our cleanup hook.
+  if (obj && typeof mod.unload === 'function' && !obj.__cleanup) {
+    obj.__cleanup = () => {
+      try { mod.unload(); } catch {}
+    };
+  }
+
+  return obj;
+}
+
+function cleanupIfNeeded(kind) {
+  if (kind === 'projects' && currentProjectGroup) {
+    currentProjectGroup.__cleanup?.();
+    removeAndDispose(currentProjectGroup);
+    currentProjectGroup = null;
+  }
+  if (kind === 'certificates' && currentCertGroup) {
+    currentCertGroup.__cleanup?.();
+    removeAndDispose(currentCertGroup);
+    currentCertGroup = null;
+  }
+}
+
 // ---------- Section snap scrolling ----------
 const sections = Array.from(document.querySelectorAll('main > section'));
 
@@ -48,16 +113,8 @@ initScrollSnap({
 
     // dispose content when leaving a section
     if (activeSectionId && activeSectionId !== id) {
-      if (activeSectionId === 'projects' && currentProjectGroup) {
-        currentProjectGroup.__cleanup?.();
-        removeAndDispose(currentProjectGroup);
-        currentProjectGroup = null;
-      }
-      if (activeSectionId === 'certificates' && currentCertGroup) {
-        currentCertGroup.__cleanup?.();
-        removeAndDispose(currentCertGroup);
-        currentCertGroup = null;
-      }
+      if (activeSectionId === 'projects') cleanupIfNeeded('projects');
+      if (activeSectionId === 'certificates') cleanupIfNeeded('certificates');
     }
 
     // apply the camera/world preset for the new section
@@ -87,8 +144,9 @@ mediaReduced?.addEventListener?.('change', (ev) => {
 });
 
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) setWorldSpin(false);
-  else {
+  if (document.hidden) {
+    setWorldSpin(false);
+  } else {
     const p = camPresets[lastPresetIndex] ?? camPresets[0];
     setWorldSpin(!prefersReduced && !!p.rotate, 0.001);
   }
@@ -103,13 +161,20 @@ if (projectsRoot) {
     },
     onOpen: async (i, project) => {
       try {
-        if (currentProjectGroup) {
-          currentProjectGroup.__cleanup?.();
-          removeAndDispose(currentProjectGroup);
-          currentProjectGroup = null;
-        }
+        cleanupIfNeeded('projects');
+
         const mod = await import(project.loader);
-        currentProjectGroup = await mod.load(addToWorld, project.opts);
+        // Load model (universal first, legacy fallback inside helper)
+        const obj = await loadWithCompat(mod, 'projects', project);
+
+        // Ensure we track something to clean up; if loader added directly,
+        // try to find a returned/group reference, otherwise we can’t clean it.
+        if (obj) {
+          currentProjectGroup = obj;
+        } else {
+          // last resort: don’t block UI if a loader didn’t return a handle
+          console.warn('[main] Loader did not return an object; cleanup may be limited:', project?.id);
+        }
       } catch (err) {
         console.error('[main] Project loader failed:', project?.loader, err);
       }
@@ -125,13 +190,16 @@ if (certsRoot) {
     },
     onOpen: async (i, cert) => {
       try {
-        if (currentCertGroup) {
-          currentCertGroup.__cleanup?.();
-          removeAndDispose(currentCertGroup);
-          currentCertGroup = null;
-        }
+        cleanupIfNeeded('certificates');
+
         const mod = await import(cert.loader);
-        currentCertGroup = await mod.load(addToWorld, cert.opts);
+        const obj = await loadWithCompat(mod, 'certificates', cert);
+
+        if (obj) {
+          currentCertGroup = obj;
+        } else {
+          console.warn('[main] Certificate loader did not return an object; cleanup may be limited:', cert?.id);
+        }
       } catch (err) {
         console.error('[main] Certificate loader failed:', cert?.loader, err);
       }
@@ -158,5 +226,4 @@ if (certsRoot) {
 
 // expose for quick tweaking in console
 window.__applyPreset = applyPreset;
-
 

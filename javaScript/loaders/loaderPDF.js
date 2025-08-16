@@ -1,5 +1,6 @@
 // js/loaders/loaderPDF.js
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
+import * as THREE from 'three';
+
 
 const PDFJS_VERSION = '3.11.174';
 

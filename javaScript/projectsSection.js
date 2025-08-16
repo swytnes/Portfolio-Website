@@ -90,7 +90,7 @@ const render = () => {
     const z    = -140 * ad;                       // <-- push neighbors back
     const s    = Math.max(.55, 1 - ad * scaleStep);
     const rot  = d === 0 ? 0 : (d > 0 ? -tiltDeg : tiltDeg);
-    let   op   = Math.max(.18, 1 - ad * opStep);
+    let   op   = Math.max(.06, 1 - ad * opStep);
     let   blur = Math.max(0, ad * blurStep);
 
     if (ad === 0){ op = 1; blur = 0; }            // center is perfectly crisp
