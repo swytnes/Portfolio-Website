@@ -73,7 +73,7 @@ export async function load(project) {
   });
 
   // normalize before adding
-  normalizeObject(obj, 10);
+  normalizeObject(obj, 50);
 
   cache.set(project.id, { obj });
   currentObj = obj;

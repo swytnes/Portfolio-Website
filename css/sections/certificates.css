@@ -1,56 +1,45 @@
 /* =========================================================
-   Certificates section
-   - Left rail (title + up/down)
-   - Vertical divider
-   - Cover-flow style carousel on the right
+   Certificates section — Layout only (glass/gradient from theme)
+   Left rail (title + up/down) | divider | cover-flow carousel
    =======================================================*/
 
-/* ---------- Sizing knobs for this section ---------- */
+/* ---------- Section sizing knobs ---------- */
 #certificates{
-  /* Move the whole panel further LEFT by growing this gutter */
+  /* Pull the panel left (gutter column). Increase to move further left. */
   --gutter-left: 0px;
 
-  /* Max width of the glass panel (shrink to keep clear of the PDF) */
+  /* Max width of the glass panel */
   --panel-max: 820px;
 
-  /* Carousel “stage” size (also used for panel min-height) */
-  --cert-stage-w: 560px;   /* <- change to make the carousel wider/narrower */
-  --cert-stage-h: 340px;   /* <- stage height */
-  --cert-gap:     84px;    /* vertical gap between cells */
-  
+  /* Carousel stage size (also used for min-height) */
+  --cert-stage-w: 560px;
+  --cert-stage-h: 340px;
+  --cert-gap:     84px;   /* vertical spacing between cells */
 }
 
-/* Move + size the outer glass panel */
+/* Panel placement + intrinsic sizing (skin comes from theme) */
 #certificates .panel{
   position: relative;
-  margin-left: var(--gutter-left);                     /* 🔹 push the whole box */
+  margin-left: var(--gutter-left);
   width: min(var(--panel-max), calc(100% - 4vw - var(--gutter-left)));
   padding: clamp(14px, 2.2vw, 26px) clamp(18px, 3vw, 32px);
   min-height: calc(var(--cert-stage-h) + 3rem);
   border-radius: 1rem;
-  background: rgba(255,255,255,.04);
-  backdrop-filter: blur(10px);
-  overflow: hidden;                                     /* 🔒 clip contents     */
+  overflow: hidden; /* clip contents */
 }
 
-/* Hide the original H2 (we render our own in the left rail) */
+/* Hide original H2 (we render a styled one in the rail) */
 #certificates .panel > h2 { display: none; }
 
 /* =========================================================
    Grid wrapper: left rail | divider | carousel
    =======================================================*/
 #certs-root .certs-grid{
-  /* three columns:
-     - 220px rail (enough room so text/arrows don’t overlap)
-     - 1px divider
-     - carousel column (auto)
-  */
   display: grid;
-  grid-template-columns: 220px 1px 1fr;
+  grid-template-columns: 220px 1px 1fr; /* rail | divider | carousel */
   align-items: center;
   gap: clamp(1rem, 2vw, 1.75rem);
 
-  /* center the whole three-column block inside the panel */
   width: 100%;
   max-width: calc(220px + 1px + var(--cert-stage-w) + 2 * clamp(1rem, 2vw, 1.75rem));
   margin-inline: auto;
@@ -63,7 +52,7 @@
   align-items: center;
   justify-content: center;   /* center title vertically */
   gap: 1rem;
-  justify-self: end;         /* snug against the divider */
+  justify-self: end;         /* sit next to divider */
 }
 
 #certs-root .certs-title{
@@ -89,7 +78,7 @@
 #certs-root .nav-btn:active  { transform: translateY(1px) scale(.98); }
 #certs-root .nav-btn:disabled{ opacity:.45; cursor: default; transform:none; }
 
-/* Vertical divider */
+/* Divider */
 #certs-root .certs-divider{
   width: 1px; height: 100%;
   background: linear-gradient(180deg, transparent, rgba(255,255,255,.26), transparent);
@@ -100,41 +89,35 @@
    Cover-flow carousel (right column)
    =======================================================*/
 #certs-root .cf{
-  /* Stage sizing — inherits the section knobs */
+  /* Stage sizing — inherits section knobs */
   --stage-w: var(--cert-stage-w);
   --stage-h: var(--cert-stage-h);
   --gap:     var(--cert-gap);
 
-  /* Card width variable (used to shift the stage) */
+  /* Card width (used for side shift) */
   --cell-w: clamp(320px, 72%, 480px);
-  /* small gap from the divider */
-  --rail-gap: clamp(8px, 1.2vw, 16px);
+  --rail-gap: clamp(8px, 1.2vw, 16px);  /* tiny gap from divider */
 
   /* Look/feel */
   --tilt: 12deg;
   --min-scale: 0.78;
   --blur: 0.6px;
 
-  grid-column: 3;                 /* right column */
+  grid-column: 3;
   position: relative;
   width: min(100%, var(--stage-w));
   height: var(--stage-h);
   perspective: 1000px;
   user-select: none;
 
-  /* put the stage flush against the divider (we shift the inner stage instead) */
-  justify-self: start;
+  justify-self: start; /* flush to divider; we offset the inner stage */
 }
 
+/* Inner stage we shift sideways a half-card so cells can stay centered */
 #certs-root .cf .stage{
   position: absolute; inset: 0;
   display: grid; place-items: center;
   overflow: visible;
-
-  /* --- Key change ---
-     Shift the whole stage to the right by half a card width + tiny gap.
-     Cells can stay centered (left:50% / translateX(-50%)) and won’t drift back.
-  */
   transform: translateX(calc(var(--cell-w) / 2 + var(--rail-gap)));
 }
 
@@ -142,12 +125,11 @@
 #certs-root .cf .cell{
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);   /* keep cells centered within the stage */
-
+  transform: translateX(-50%); /* baseline; JS augments */
   display: block;
   box-sizing: border-box;
 
-  width: var(--cell-w);          /* use the same variable */
+  width: var(--cell-w);
   height: 72px;
   padding: .85rem 1.1rem;
   border-radius: .9rem;
@@ -159,32 +141,22 @@
   display: grid; align-content: center; text-align: left;
   transition: transform .25s ease, opacity .2s ease, filter .2s ease, border-color .2s ease;
   cursor: pointer;
-  z-index: 1;                     /* sits above stage background */
+  z-index: 1;
 }
 
 /* Keep text above any overlays/highlights */
-#certs-root .cf .cell > *{
-  position: relative;
-  z-index: 2;
-}
+#certs-root .cf .cell > *{ position: relative; z-index: 2; }
 #certs-root .cf .cell::before{
   content: "";
   position: absolute; inset: 0;
-  border-radius: inherit;
-  z-index: 1;
+  border-radius: inherit; z-index: 1;
   background: radial-gradient(120% 120% at 50% -20%, rgba(255,255,255,.06), transparent 60%);
 }
-
 #certs-root .cf .cell .title{
-  display: block;
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-weight: 600;
-  letter-spacing: .2px;
+  display: block; line-height: 1.2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font-weight: 600; letter-spacing: .2px;
 }
-
 #certs-root .cf .cell[aria-selected="true"]{
   border-color: rgba(255,255,255,.28);
   box-shadow: 0 16px 40px rgba(0,0,0,.30);
@@ -223,10 +195,9 @@
     justify-self: stretch;
   }
   /* When stacked, don’t shift the stage sideways */
-  #certs-root .cf .stage{
-    transform: none;
-  }
+  #certs-root .cf .stage{ transform: none; }
 }
+
 
 
 

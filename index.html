@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="css/sections/projects.css">
   <link rel="stylesheet" href="css/sections/certificates.css">
   <link rel="stylesheet" href="css/sections/contact.css">
+  <link rel="stylesheet" href="css/50-theme.css">
+
 
   <meta name="description" content="Portfolio website of Philipp Stockerl" />
   <script type="importmap">
@@ -32,57 +34,146 @@
   <!-- Three.js background -->
   <div id="three-container"></div>
 
-  <!-- Header / Nav -->
-  <header>
-    <nav aria-label="Primary" class="nav">
-      <!-- Compact brand (hidden at top; fades in on scroll) -->
-      <a href="#intro" class="brand">
-        <img src="Assets/pictureGrey.png" alt="Philipp Stockerl" class="brand-avatar" />
-        <span class="brand-name">Philipp Stockerl</span>
-      </a>
+<header>
+  <nav aria-label="Primary" class="nav glass-nav">
+    <a href="#intro" class="brand">
+      <img src="Assets/pictureGrey.png" alt="Philipp Stockerl" class="brand-avatar" />
+      <span class="brand-name">Philipp Stockerl</span>
+    </a>
 
-      <!-- Nav links -->
-      <div class="links">
-        <a href="#intro">Intro</a>
-        <a href="#about">About</a>
-        <a href="#education">Education</a>
-        <a href="#projects">Projects</a>
-        <a href="#certificates">Certificates</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
-  </header>
+    <div class="links">
+      <a href="#intro">Intro</a>
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#projects">Projects</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
 
   <!-- Sections (ordered) -->
   <main>
-    <!-- Intro (big identity right under the navbar) -->
-    <section id="intro" class="section" data-cam-index="0" aria-label="Introduction">
-      <div class="section-inner hero">
-        <img
-          src="Assets/pictureGrey.png"
-          alt="Portrait of Philipp Stockerl"
-          class="hero-avatar"
-        />
-        <div class="hero-text">
-          <h1>Philipp Stockerl</h1>
-          <p>Short tagline goes here. CTA and quick links later.</p>
+
+
+    <section id="intro" class="section" aria-label="Intro">
+  <div class="section-inner">
+    <div class="hero-card" id="hero">
+      <div class="hero-media">
+        <img src="assets/pictureGrey.png" alt="Philipp Stockerl portrait" class="hero-img">
+        <span class="hero-img-frame"></span>
+      </div>
+
+      <div class="hero-content">
+        <h1 class="hero-title">
+          <span class="hero-kicker">Philipp</span> Stockerl
+        </h1>
+        <p class="hero-sub">
+          I am a student at the University of Passau in my last semester of a double Bachelors degree.
+        </p>
+
+        <div class="hero-bullets">
+          <div class="bullet">
+            <span class="dot"></span>
+            B.Sc. Business Administration and Economics (Wirtschaftswissenschaften mit Schwerpunkt Wirtschaftsinformatik) 
+          </div>
+          <div class="bullet">
+            <span class="dot"></span>
+            B.Sc. Information Systems (Wirtschaftsinformatik)
+          </div>
+        </div>
+
+        <div class="hero-cta">
+          <a class="btn primary" href="#projects">View projects</a>
+          <a class="btn ghost" href="#contact">Contact</a>
         </div>
       </div>
-    </section>
-
-  <section id="about" class="section" data-cam-index="0" aria-label="About me">
-    <div class="section-inner">
-      <h2>About me</h2>
-      <p>One or two paragraphs about who you are and what you do.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="education" class="section" data-cam-index="0" aria-label="Education">
-    <div class="section-inner">
-      <h2>Education</h2>
-      <p>List your degrees, courses, highlights.</p>
+
+
+<section id="about" class="section" data-cam-index="0" aria-label="About me">
+  <div class="section-inner">
+    <!-- replace the inner contents with this -->
+    <div class="glass-card about-card">
+      <div class="about-main">
+        <h2 class="card-title"><span class="accent">About</span> Me</h2>
+        <p class="card-sub">
+          Business Informatics & Economics background with a focus on optimization, operations,
+          and polished frontend engineering.
+        </p>
+        <ul class="bullet-list">
+          <li><span class="dot"></span> Optimization & linear programming for real problems.</li>
+          <li><span class="dot"></span> Frontend systems, performance, and UX polish.</li>
+          <li><span class="dot"></span> Data-driven decision tools & visualizations.</li>
+        </ul>
+      </div>
+
+      <div class="about-bars">
+        <div class="bar"><span class="pip"></span> Operations Research · Supply Chain</div>
+        <div class="bar"><span class="pip"></span> Three.js · React · TypeScript</div>
+        <div class="bar"><span class="pip"></span> Python · Gurobi · Data viz</div>
+        <div class="bar"><span class="pip"></span> Design systems · Component libraries</div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
+
+
+
+<section id="education" class="section" data-cam-index="0" aria-label="Education">
+  <div class="section-inner">
+    <div class="edu-shell">
+  <h2 class="card-title"><span class="accent">Education</span></h2>
+
+  <div class="edu-row">
+    <article class="edu-box">
+      <header>
+        <h3>B.Sc. Business Informatics</h3>
+        <span class="tag">2019–2022</span>
+      </header>
+      <p>Operations, optimization, and information systems.</p>
+      <ul class="mini">
+        <li>Algorithms & Data Structures</li>
+        <li>LP & Network Flows</li>
+      </ul>
+    </article>
+
+    <article class="edu-box">
+      <header>
+        <h3>M.Sc. Economics</h3>
+        <span class="tag">2023–now</span>
+      </header>
+      <p>Quantitative methods and applied optimization.</p>
+      <ul class="mini">
+        <li>Micro/IO · Econometrics</li>
+        <li>Decision Models</li>
+      </ul>
+    </article>
+
+    <article class="edu-box">
+      <header>
+        <h3>Certifications</h3>
+        <span class="tag">Selected</span>
+      </header>
+      <p>Courses that complement academics.</p>
+      <ul class="mini">
+        <li>Gurobi Basics</li>
+        <li>Modern React & Three.js</li>
+      </ul>
+    </article>
+  </div>
+</div>
+
+  </div>
+</section>
+
+
+
+
 
 <!-- Projects (panel slides RIGHT by increasing --gutter-right) -->
 <section

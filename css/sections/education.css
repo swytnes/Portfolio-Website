@@ -1,11 +1,45 @@
-/* Education: centered; roomy card */
-#education { align-items: center; }
-#education .section-inner {
-  max-width: min(100%, 960px);
-  --offset-x: 0px;
-  --offset-y: 0px;
+/* Education: layout only; visuals from theme */
+#education { position: relative; align-items: center; }
+#education .section-inner { max-width: none; }
+
+/* Big container (theme skins it) */
+.edu-shell{
+  --card-w: clamp(900px, 86vw, 1200px);
+  --pad: clamp(18px, 3.2vmin, 32px);
+  --radius: 16px;
+
+  position: relative;
+  z-index: 3;
+  margin-inline: auto;
+  width: var(--card-w);
+  padding: var(--pad);
+  border-radius: var(--radius);
 }
 
-/* Optional: tidy spacing inside the card */
-#education .section-inner > * + * { margin-top: .75rem; }
+/* Three horizontal boxes */
+.edu-row{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2.2vmin, 22px);
+  margin-top: .6rem;
+}
+
+/* Small boxes (keep neutral look; theme handles headline/accent elsewhere) */
+.edu-box{
+  padding: 1rem;
+  border-radius: 14px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.edu-box header{ display:flex; align-items:center; justify-content:space-between; gap:.75rem; }
+.edu-box h3{ margin:0; font-size: clamp(18px, 2.4vmin, 22px); }
+.tag{ font-size:.8rem; padding:.25rem .55rem; border-radius:999px; }
+.edu-box p{ margin: .15rem 0 .4rem; }
+.edu-box .mini{ list-style:none; padding:0; margin:0; display:grid; gap:.25rem; }
+.edu-box .mini li::before{ content:"• "; margin-right:.25rem; opacity:.9; }
+
+@media (max-width: 1100px){ .edu-row{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 720px){  .edu-row{ grid-template-columns: 1fr; } }
 

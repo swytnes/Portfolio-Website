@@ -1,18 +1,46 @@
 :root{
-  /* Colors */
-  --bg:#0b1120; --text:#e5e7eb;
-  --hairline:rgba(255,255,255,.12);
-  --card-bg:rgba(255,255,255,.08);
-  --card-border:rgba(255,255,255,.16);
-  --card-shadow:0 10px 30px rgba(0,0,0,.25);
-  --blur-card:blur(6px) saturate(120%);
-  --blur-header:blur(8px) saturate(140%);
+  /* ===== Core palette ===== */
+  --bg: #0b1120;
+  --text: #e5e7eb;
+  --hairline: rgba(255,255,255,.12);
+
+  /* Glass / cards */
+  --glass-panel-bg: rgba(20,25,38,.55);
+  --glass-panel-border: rgba(255,255,255,.08);
+  --glass-panel-shadow: 0 20px 60px rgba(0,0,0,.35);
+  --glass-panel-blur: blur(12px) saturate(120%);
+
+  /* Back-compat aliases */
+  --card-bg: var(--glass-panel-bg);
+  --card-border: var(--glass-panel-border);
+  --card-shadow: 0 10px 30px rgba(0,0,0,.25);
+  --blur-card: blur(6px) saturate(120%);
+  --blur-header: blur(12px) saturate(120%);
+
+  /* ===== Theme knobs ===== */
+  --headline-color: #e9edf6;
+  --accent-color:  #dddddd;
+  --grad-1: #ffffff;
+  --grad-2: #333333;
+  --grad-3: #ffffff;
+  --stripe-h: 2px;
+
+  /* Buttons */
+  --btn-primary-bg: var(--accent-color);
+  --btn-primary-text: #0b0f1a;
+  --btn-primary-shadow: 0 6px 20px color-mix(in srgb, var(--accent-color) 28%, transparent);
+
+  /* Radii */
+  --radius-xl: 16px;
+  --radius-lg: 14px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
 
   /* Caps & scales */
-  --page-max:1400px;         /* page width cap */
-  --panel-max:720px;         /* default card width cap */
+  --page-max: 1400px;
+  --panel-max: 720px;
 
-  /* Fluid gutters (override per section as needed) */
+  /* Gutters */
   --gutter-left:  clamp(1rem, 8vw, 22rem);
   --gutter-right: clamp(1rem, 8vw, 22rem);
 
@@ -20,14 +48,15 @@
   --space: clamp(1rem, 2vw, 2rem);
   --h1: clamp(2rem, 3.5vw, 3.5rem);
   --h2: clamp(1.5rem, 2.2vw, 2.25rem);
-  --p : clamp(.95rem, 1.1vw, 1.05rem);
+  --p:  clamp(.95rem, 1.1vw, 1.05rem);
 }
 
-/* Optional wider-screen tuning */
 @media (width >= 1600px){
   :root{
-    --panel-max:840px;
+    --panel-max: 840px;
     --gutter-left:  clamp(2rem, 12vw, 28rem);
     --gutter-right: clamp(2rem, 12vw, 28rem);
   }
 }
+
+

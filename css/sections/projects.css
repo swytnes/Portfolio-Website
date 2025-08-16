@@ -11,10 +11,10 @@
 
 /* Panel sizing + inner margins (breathing room) */
 #projects .panel {
-  justify-self: start;                 /* stick to left side of grid/section */
+  justify-self: center;                 /* stick to left side of grid/section */
   position: absolute;                  /* allow manual positioning */
-  left: 1000px;                         /* move box 200px from the left edge */
-  width: 2000px;                       /* make the panel wider */
+  left: 500px;                         /* move box 200px from the left edge */
+  width: 1000px;                       /* make the panel wider */
   padding-inline: clamp(18px, 3vw, 32px);
   padding-block: clamp(14px, 2.2vw, 26px);
   min-height: calc(var(--card-h, 380px) + 20px); /* panel height relative to cards */
