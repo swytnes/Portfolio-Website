@@ -121,11 +121,40 @@ const render = () => {
     const card = e.target.closest('.card');
     if (!card) return;
     const i = Number(card.dataset.index);
-    if (e.target.matches('.open')) onOpen?.(i, projects[i]);
+
+    if (e.target.matches('.open')) {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
+        // --- Mobile overlay ---
+        const overlay = document.createElement('div');
+        overlay.className = 'project-overlay';
+        overlay.innerHTML = `
+          <div class="overlay-content">
+            <button class="overlay-close" aria-label="Close">×</button>
+            <div id="overlay-viewer"></div>
+          </div>
+        `;
+        document.body.appendChild(overlay);
+
+        // load the model/PDF into overlay instead of shifting grid
+        onOpen?.(i, projects[i], document.getElementById('overlay-viewer'));
+
+        // Close handler
+        overlay.querySelector('.overlay-close').addEventListener('click', () => {
+          overlay.remove();
+          onActivate?.(active, projects[active]); // reset if needed
+        });
+      } else {
+        // --- Desktop: keep your original grid-shift behavior
+        onOpen?.(i, projects[i]);
+      }
+    }
+
     if (e.target.matches('.focus') || !e.target.closest('.btn')) {
       active = i; render();
     }
   });
+
 
   // Keyboard nav (optional)
   wrap.tabIndex = 0;

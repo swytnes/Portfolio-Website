@@ -42,45 +42,31 @@ function applyPreset(index) {
   lastPresetIndex = index;
 }
 
-// universal dynamic load helper that supports both new & legacy loader signatures
+// universal dynamic load helper
 async function loadWithCompat(mod, section, item) {
-  // Preferred: universal loader expects the entire project/cert object
-  //   await mod.load(item)
-  // Fallback: legacy signature
-  //   await mod.load(addToWorld, item.opts)
-
   if (typeof mod.load !== 'function') {
     throw new Error('Loader module has no load() export');
   }
 
   let obj = null;
 
-  // Try universal signature first
   try {
     const maybe = await mod.load(item);
     if (maybe) obj = maybe;
-  } catch (e) {
-    // If the module explicitly throws because it expects legacy args, ignore
-    // and try the legacy path below.
-  }
+  } catch (e) { /* try fallback */ }
 
-  // Legacy fallback if nothing returned yet
   if (!obj) {
     try {
       obj = await mod.load(addToWorld, item?.opts);
     } catch (e2) {
-      // If still failing, rethrow the original problem
       throw e2;
     }
   }
 
-  // If the loader didn’t return an object (it may have added directly),
-  // try a conventional getter if provided.
   if (!obj && typeof mod.getCurrent === 'function') {
     obj = mod.getCurrent();
   }
 
-  // If there’s an explicit unload() export, wire it into our cleanup hook.
   if (obj && typeof mod.unload === 'function' && !obj.__cleanup) {
     obj.__cleanup = () => {
       try { mod.unload(); } catch {}
@@ -111,13 +97,11 @@ initScrollSnap({
   onSectionChange: async (visibleIndex, sectionEl) => {
     const id = sectionEl?.id || '';
 
-    // dispose content when leaving a section
     if (activeSectionId && activeSectionId !== id) {
       if (activeSectionId === 'projects') cleanupIfNeeded('projects');
       if (activeSectionId === 'certificates') cleanupIfNeeded('certificates');
     }
 
-    // apply the camera/world preset for the new section
     const v = Number.parseInt(sectionEl?.dataset?.camIndex, 10);
     const presetIdx = Number.isFinite(v) ? v : visibleIndex;
     applyPreset(presetIdx);
@@ -152,36 +136,34 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
-// ---------- Carousels ----------
+// ---------- Projects carousel ----------
 const projectsRoot = document.getElementById('projects-root');
 if (projectsRoot) {
   initProjects(projectsRoot, {
     onActivate: (i, project) => {
       if (typeof project.presetIndex === 'number') applyPreset(project.presetIndex);
     },
-    onOpen: async (i, project) => {
-      try {
-        cleanupIfNeeded('projects');
-
-        const mod = await import(project.loader);
-        // Load model (universal first, legacy fallback inside helper)
-        const obj = await loadWithCompat(mod, 'projects', project);
-
-        // Ensure we track something to clean up; if loader added directly,
-        // try to find a returned/group reference, otherwise we can’t clean it.
-        if (obj) {
-          currentProjectGroup = obj;
-        } else {
-          // last resort: don’t block UI if a loader didn’t return a handle
-          console.warn('[main] Loader did not return an object; cleanup may be limited:', project?.id);
+    onOpen: async (i, project, targetEl) => {
+      // targetEl is defined if projectsSection.js created an overlay (mobile)
+      if (targetEl) {
+        targetEl.innerHTML = `<p style="color:white; text-align:center;">Loading ${project.title}…</p>`;
+        // TODO: extend loaders so they can render into targetEl
+      } else {
+        try {
+          cleanupIfNeeded('projects');
+          const mod = await import(project.loader);
+          const obj = await loadWithCompat(mod, 'projects', project);
+          if (obj) currentProjectGroup = obj;
+          else console.warn('[main] Loader did not return object:', project?.id);
+        } catch (err) {
+          console.error('[main] Project loader failed:', project?.loader, err);
         }
-      } catch (err) {
-        console.error('[main] Project loader failed:', project?.loader, err);
       }
     }
   });
 }
 
+// ---------- Certificates carousel ----------
 const certsRoot = document.getElementById('certs-root');
 if (certsRoot) {
   initCertificates(certsRoot, {
@@ -191,15 +173,10 @@ if (certsRoot) {
     onOpen: async (i, cert) => {
       try {
         cleanupIfNeeded('certificates');
-
         const mod = await import(cert.loader);
         const obj = await loadWithCompat(mod, 'certificates', cert);
-
-        if (obj) {
-          currentCertGroup = obj;
-        } else {
-          console.warn('[main] Certificate loader did not return an object; cleanup may be limited:', cert?.id);
-        }
+        if (obj) currentCertGroup = obj;
+        else console.warn('[main] Certificate loader did not return object:', cert?.id);
       } catch (err) {
         console.error('[main] Certificate loader failed:', cert?.loader, err);
       }

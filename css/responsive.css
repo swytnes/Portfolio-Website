@@ -1,10 +1,11 @@
 /* =========================================================
-   responsive.css
-   Centralized responsive overrides for all sections
+   responsive.css (mobile-first system)
+   - Defines consistent breakpoints
+   - Mobile is default; enhancements for larger screens
    ========================================================= */
 
-/* ===== Wide screens (ultrawide, ≥1600px) ===== */
-@media (min-width: 1600px) {
+/* ========== Extra-large screens (ultrawide, ≥1441px) ========== */
+@media (min-width: 1441px) {
   :root {
     --panel-max: 840px;
     --gutter-left: clamp(2rem, 12vw, 28rem);
@@ -12,25 +13,42 @@
   }
 }
 
-/* ===== Large tablets & small desktops (≤1200px) ===== */
-@media (max-width: 1200px) {
-  /* Projects */
+/* ========== Large screens (laptops/desktops, 1025–1440px) ========== */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  /* Projects layout */
   #projects .panel {
     width: min(1200px, calc(100% - 5vw));
   }
 }
 
-/* ===== Tablets (≤1100px) ===== */
-@media (max-width: 1100px) {
-  /* Education — switch to 2 columns */
+/* ========== Medium screens (tablets, 641–1024px) ========== */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Education: switch to 2 columns */
   .edu-row {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* Intro: 2-column hero card */
+  .hero-card {
+    grid-template-columns: 1.2fr 1.8fr;
+    text-align: left;
+  }
+
+  /* About: 2-column about card */
+  .about-card {
+    grid-template-columns: 1.2fr 1.8fr;
+    text-align: left;
+  }
 }
 
-/* ===== Small tablets / large phones (≤920px) ===== */
-@media (max-width: 920px) {
-  /* Intro section — stack hero card */
+/* ========== Small screens (phones, ≤640px) ========== */
+@media (max-width: 640px) {
+  /* Education: single column */
+  .edu-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Intro: stack hero card */
   .hero-card {
     grid-template-columns: 1fr;
     text-align: center;
@@ -42,7 +60,7 @@
     text-align: left;
   }
 
-  /* About section — stack about card */
+  /* About: stack about card */
   .about-card {
     grid-template-columns: 1fr;
     text-align: center;
@@ -53,33 +71,8 @@
   .about-card .hero-bullets {
     text-align: left;
   }
-}
 
-/* ===== Small screens (≤900px) ===== */
-@media (max-width: 900px) {
-  /* Projects panel + carousel tweaks */
-  #projects .panel {
-    width: min(100%, calc(100% - 4vw));
-    padding-inline: clamp(12px, 3vw, 20px);
-  }
-  #projects .carousel.coverflow {
-    --center-ratio: .5;
-    --spacing: calc(var(--card-w) * 1.02);
-    --blur-step: .18px;
-  }
-}
-
-/* ===== Phones (≤720px) ===== */
-@media (max-width: 720px) {
-  /* Education — stack to single column */
-  .edu-row {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ===== Very small devices / narrow layouts (≤700px) ===== */
-@container (max-width: 700px) {
-  /* Certificates section — stack rail above carousel */
+  /* Certificates: stack rail above carousel */
   #certs-root .certs-grid {
     grid-template-columns: 1fr;
     max-width: 100%;
@@ -103,4 +96,16 @@
   #certs-root .cf .stage {
     transform: none;
   }
+
+  /* Projects: tighten panel for mobile */
+  #projects .panel {
+    width: min(100%, calc(100% - 4vw));
+    padding-inline: clamp(12px, 3vw, 20px);
+  }
+  #projects .carousel.coverflow {
+    --center-ratio: .5;
+    --spacing: calc(var(--card-w) * 1.02);
+    --blur-step: .18px;
+  }
 }
+
