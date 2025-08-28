@@ -1,0 +1,106 @@
+/* =========================================================
+   responsive.css
+   Centralized responsive overrides for all sections
+   ========================================================= */
+
+/* ===== Wide screens (ultrawide, ≥1600px) ===== */
+@media (min-width: 1600px) {
+  :root {
+    --panel-max: 840px;
+    --gutter-left: clamp(2rem, 12vw, 28rem);
+    --gutter-right: clamp(2rem, 12vw, 28rem);
+  }
+}
+
+/* ===== Large tablets & small desktops (≤1200px) ===== */
+@media (max-width: 1200px) {
+  /* Projects */
+  #projects .panel {
+    width: min(1200px, calc(100% - 5vw));
+  }
+}
+
+/* ===== Tablets (≤1100px) ===== */
+@media (max-width: 1100px) {
+  /* Education — switch to 2 columns */
+  .edu-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===== Small tablets / large phones (≤920px) ===== */
+@media (max-width: 920px) {
+  /* Intro section — stack hero card */
+  .hero-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-content {
+    justify-self: center;
+  }
+  .hero-bullets {
+    text-align: left;
+  }
+
+  /* About section — stack about card */
+  .about-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .about-card .hero-content {
+    justify-self: center;
+  }
+  .about-card .hero-bullets {
+    text-align: left;
+  }
+}
+
+/* ===== Small screens (≤900px) ===== */
+@media (max-width: 900px) {
+  /* Projects panel + carousel tweaks */
+  #projects .panel {
+    width: min(100%, calc(100% - 4vw));
+    padding-inline: clamp(12px, 3vw, 20px);
+  }
+  #projects .carousel.coverflow {
+    --center-ratio: .5;
+    --spacing: calc(var(--card-w) * 1.02);
+    --blur-step: .18px;
+  }
+}
+
+/* ===== Phones (≤720px) ===== */
+@media (max-width: 720px) {
+  /* Education — stack to single column */
+  .edu-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Very small devices / narrow layouts (≤700px) ===== */
+@container (max-width: 700px) {
+  /* Certificates section — stack rail above carousel */
+  #certs-root .certs-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+  #certs-root .certs-aside {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  #certs-root .certs-divider {
+    display: none;
+  }
+  #certs-root .cf {
+    width: 100%;
+    --stage-w: 100%;
+    --cell-w: clamp(300px, 88vw, 520px);
+    --stage-h: clamp(260px, 42vh, 340px);
+    --gap: clamp(60px, 7vh, var(--cert-gap));
+    margin-top: .75rem;
+    justify-self: stretch;
+  }
+  #certs-root .cf .stage {
+    transform: none;
+  }
+}
