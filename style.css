@@ -1,0 +1,660 @@
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  background-color: #1a1f2e; /* lighter navy background for more contrast */
+  color: #E9ECEF;
+  line-height: 1.6;
+
+  /* dotted grid overlay */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px; /* spacing between dots */
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 700;
+}
+
+/* Layout */
+.content-sections {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;   /* keeps content centered on large screens */
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  gap: 2rem;
+}
+
+.content-sidebar {
+  flex: 1;
+  color: #E9ECEF;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 1.5rem;
+  position: sticky;
+  top: 6rem;
+  align-self: flex-start;
+  height: fit-content;
+}
+
+/* Added left padding to the right content area to move it further right */
+.content-main {
+  flex: 3;
+  padding-left: 2rem;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.content-sidebar nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.content-sidebar a {
+  color: #ADB5BD; /* muted gray for inactive */
+  text-decoration: none;
+  transition: color 0.3s;
+  font-weight: 500;
+  padding-left: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  position: relative;
+  border-left: none;
+}
+
+.content-sidebar a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 2px;
+  background-color: #ADB5BD;
+  transition: background-color 0.3s, width 0.3s;
+  border-radius: 1px;
+}
+
+.content-sidebar a:hover,
+.content-sidebar a.active {
+  color: #6C757D;
+  font-weight: 700;
+}
+
+.content-sidebar a.active {
+  /* Removed border-left styling */
+  padding-left: 1.5rem;
+}
+
+.content-sidebar a:hover::before,
+.content-sidebar a.active::before {
+  background-color: #6C757D;
+  width: 20px;
+}
+
+/* Content Boxes (shared) */
+.content-box {
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem 2rem;
+  max-width: 90%;       /* prevent cutting off */
+  overflow-wrap: break-word; /* wrap long text */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Ensure the first content box in any section has space from the separator */
+.content-box:first-of-type {
+  margin-top: 2rem; /* adjust as needed */
+}
+
+.content-box h3 {
+  font-weight: 700;
+  color: #E9ECEF;
+  margin-bottom: 0.25rem;
+}
+
+.content-box h4 {
+  font-weight: 600;
+  color: #ADB5BD;
+  margin-bottom: 0.5rem;
+}
+
+.content-box p {
+  color: #ADB5BD;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Add margin-top to groups of boxes */
+.education-content {
+  position: relative;
+  margin-top: 4rem;
+  padding-left: 2rem;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.education-content::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #ADB5BD;
+}
+
+.experience-content {
+  margin-top: 4rem;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.projects-content {
+  margin-top: 4rem;
+  padding-left: 8rem;   /* shifts project boxes to the right */
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* allow negative z-index children to render behind content */
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .projects-content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    background: rgba(0,0,0,0.95);
+    padding: 1rem 0;
+    border-radius: 0 0 12px 12px;
+    z-index: 20;
+    text-align: center;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  nav ul li a {
+    font-size: 1.1rem;
+    color: #E9ECEF;
+  }
+
+  nav ul li a:hover {
+    color: #6C757D;
+  }
+}
+
+/* Education */
+.education-box {
+  position: relative;
+}
+
+/* New styles for edu-years */
+.edu-years {
+  font-size: 0.8rem;
+  color: #6C757D;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.education-box::before {
+  content: "";
+  position: absolute;
+  left: 0;                      /* place directly on the vertical line */
+  top: 2.2rem;                  /* aligns vertically with the h3 title inside */
+  width: 14px;
+  height: 14px;
+  background-color: #212529;    /* background to make it hollow */
+  border-radius: 50%;
+  border: 2px solid #ADB5BD;    /* same color as vertical line */
+  transform: translate(-50%, -50%); /* center exactly on the line */
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.education-box:hover::before {
+  border-color: #6C757D;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Experience */
+.experience-box {
+  /* Extend .content-box styles */
+}
+
+/* Projects */
+.project-box {
+  /* Extend .content-box styles */
+}
+
+/* Tags container */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Individual tag styling */
+.tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 12px;
+  background-color: #343A40; /* darker navy */
+  color: #ADB5BD;
+  transition: color 0.3s;
+  cursor: default;
+}
+
+.tag:hover {
+  color: #ffffff;
+}
+
+/* New styles for View Certificate tag */
+.tag[data-type="pdf"] {
+  background-color: #6C757D; /* stronger background */
+  color: #ffffff;            /* brighter text */
+  font-weight: 600;
+  border: 1px solid #ADB5BD;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.tag[data-type="pdf"]:hover {
+  background-color: #ffffff;
+  color: #212529;
+  border-color: #6C757D;
+}
+
+.content-box.hover-pop:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Auto-highlighted content box (when centered in viewport) */
+.content-box.active {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Hero section */
+#hero {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* allow negative z-index children to render behind content */
+}
+
+.intro-text {
+  color: #6C757D;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+#hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #F8F9FA;
+}
+
+#hero h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #CED4DA;
+  margin: 1rem 0 2rem 0;
+}
+
+.bio {
+  max-width: 600px;
+  font-size: 1rem;
+  color: #ADB5BD;
+  margin-bottom: 2rem;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+}
+
+header h1 {
+  font-size: 1.25rem;
+  color: #6C757D; /* accent cyan */
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-logo img.logo {
+  height: 40px;
+  width: auto;
+}
+
+nav {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+nav a {
+  text-decoration: none;
+  color: #ADB5BD;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: #6C757D;
+}
+
+/* Sidebar base */
+.social-sidebar, .email-sidebar {
+  position: fixed;
+  z-index: 10;
+  color: #E9ECEF;
+  font-size: 0.9rem;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+/* Left side (social links) */
+.social-sidebar {
+  left: 2rem;
+  bottom: 4rem;
+}
+
+.social-sidebar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.social-sidebar a {
+  color: #ADB5BD;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-sidebar a:hover {
+  color: #6C757D;
+}
+
+.social-sidebar img {
+  width: 28px;   /* set consistent width */
+  height: 28px;  /* set consistent height */
+  display: block;
+  object-fit: contain; /* keeps aspect ratio */
+}
+
+/* Right side (email) */
+.email-sidebar {
+  right: 2rem;
+  bottom: 6rem;
+  writing-mode: vertical-rl; /* vertical text */
+  transform: rotate(180deg); /* makes it read bottom-to-top */
+}
+
+.email-sidebar a {
+  color: #ADB5BD;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+}
+
+.email-sidebar a:hover {
+  color: #ffffff;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.85rem;
+  color: #ADB5BD;
+  border-top: 1px solid #343A40;
+}
+
+/* Effects */
+/* Spotlight cursor effect */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* don't block clicks */
+  background: radial-gradient(
+    circle 200px at var(--x, 50%) var(--y, 50%),
+    rgba(255, 255, 255, 0.05),
+    transparent 80%
+  );
+  transition: background 0.1s;
+  z-index: 0; /* stays behind content */
+}
+.content-box.hover-pop:hover h3 {
+  color: #ffffff;
+}
+
+/* Added smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Active sidebar link highlighting */
+.content-sidebar a.active {
+  color: #6C757D;
+  font-weight: bold;
+}
+
+
+
+#three-container {
+  position: fixed;        /* Stick it to the viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;            /* Put it behind everything */
+  pointer-events: none;   /* Don’t block clicks on your UI */
+}
+/* Section separator style */
+.section-separator {
+  border: none;
+  height: 2px;
+  background-color: #ADB5BD;
+  opacity: 0.3;
+  margin: 4rem 0;
+}
+/* Button styles */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #6C757D;
+  border-radius: 8px;
+  color: #6C757D;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.05); /* subtle box background */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);  /* shadow for depth */
+}
+
+.btn:hover {
+  background-color: #6C757D;
+  color: #F8F9FA;
+}
+
+/* --- Polygon background decorations (SVG) ------------------------------ */
+.poly {
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;                /* sit behind section content */
+  overflow: visible;
+  opacity: 0.25;              /* overall subtlety */
+}
+
+.poly-hero {
+  top: 1rem;
+  right: 3rem;
+  width: 320px;
+  height: 320px;
+}
+
+.poly-projects {
+  bottom: 1rem;
+  left: 0;
+  width: 280px;
+  height: 280px;
+  opacity: 0.18;
+}
+
+.poly-edge {
+  fill: none;
+  stroke: #6C757D;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke; /* keep stroke width consistent */
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-opacity: 0.6;
+}
+
+.poly-edge.dashed {
+  stroke-dasharray: 6 6;
+  stroke-opacity: 0.35;
+}
+
+.poly-node {
+  fill: #E9ECEF;
+  stroke: #343A40;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.75;
+}
+/* Responsive Layouts */
+
+/* Hamburger menu for mobile */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: #ADB5BD;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Show hamburger on small screens */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  /* nav ul styles replaced above */
+  .content-sidebar {
+    display: none;
+  }
+}
+
+/* Tablets (<= 992px) */
+@media (max-width: 992px) {
+  .content-sections {
+    flex-direction: column;
+    padding: 4rem 1.5rem;
+  }
+  .content-sidebar {
+    position: relative;
+    top: unset;
+    padding-left: 0;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .content-main {
+    padding-left: 0;
+    max-width: 100%;
+  }
+}
+
+/* Mobiles (<= 600px) */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    padding: 1rem 2rem;
+    text-align: center;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .content-box {
+    padding: 1rem;
+  }
+
+  .tags {
+    gap: 0.25rem;
+  }
+}
+

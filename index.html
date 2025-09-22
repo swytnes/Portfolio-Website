@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Philipp Stockerl — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/logo.png">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Three.js background -->
+  <div id="three-container"></div>
+
+
+    <!-- Social Sidebar -->
+    <div class="social-sidebar">
+    <ul>
+        <li>
+        <a href="https://github.com/yourname" target="_blank" aria-label="GitHub">
+            <img src="assets/github.svg" alt="GitHub logo">
+        </a>
+        </li>
+        <li>
+        <a href="https://linkedin.com/in/yourname" target="_blank" aria-label="LinkedIn">
+            <img src="assets/linkedin.svg" alt="LinkedIn logo">
+        </a>
+        </li>
+    </ul>
+    </div>
+
+    <!-- Email Sidebar -->
+    <div class="email-sidebar">
+    <a href="mailto:me">philipp.stockerl@hotmail.de</a>
+    </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-logo">
+      <img src="assets/logo.png" alt="Logo" class="logo">
+      <h1>My Webportfolio</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#about" data-i18n="navAbout">About</a></li>
+        <li><a href="#projects" data-i18n="navProjects">Projects</a></li>
+        <li><a href="#education" data-i18n="navEducation">Education</a></li>
+        <li><a href="#experience" data-i18n="navExperience">Experience</a></li>
+        <li><a href="#skills" data-i18n="navSkills">Skills</a></li>
+      </ul>
+    </nav>
+    <div class="language-toggle">
+      <button id="langToggle">🌐 EN/DE</button>
+    </div>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Hero / Intro Section -->
+    <section id="hero">
+    <p class="intro-text" data-i18n="introText">Hi, I'm</p>
+    <h1 data-i18n="name">Philipp Stockerl</h1>
+    <h2 data-i18n="headline">I design optimization models for supply chains, production & processes.</h2>
+
+    <p class="bio" data-i18n="bio">
+        Student focused on <strong>Optimization & Process Management</strong>, specializing in digitalization, Industry 4.0, automation, and ERP systems.  
+        <br>Currently pursuing a double degree in <em>Business Administration & Economics</em> and <em>Information Systems</em> with emphasis on Supply Chain, Operations Management, and Data Science.
+    </p>
+
+    <a href="assets/cv.pdf" class="btn" target="_blank" data-i18n="downloadCV">Download my CV</a>
+
+    <!-- Decorative convex polygon with extreme points -->
+    <svg class="poly poly-hero parallax-layer" data-speed="1.5" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g>
+        <!-- Outer hull -->
+        <polygon class="poly-edge" points="24,60 120,22 202,84 170,194 52,172" />
+        <!-- Inner hull (dashed) -->
+        <polygon class="poly-edge dashed" points="44,44 182,72 150,180 70,190 36,120" />
+        <!-- Extreme points (nodes) -->
+        <circle class="poly-node" cx="24" cy="60" r="3"/>
+        <circle class="poly-node" cx="120" cy="22" r="3"/>
+        <circle class="poly-node" cx="202" cy="84" r="3"/>
+        <circle class="poly-node" cx="170" cy="194" r="3"/>
+        <circle class="poly-node" cx="52" cy="172" r="3"/>
+      </g>
+    </svg>
+    </section>
+
+
+    <!-- Sidebar & Section of Main -->
+    <section class="content-sections">
+      <div class="content-sidebar">
+        <nav>
+          <ul>
+            <li><a href="#hero" data-i18n="navAbout">Hero</a></li>
+            <li><a href="#projects" data-i18n="navProjects">Projects</a></li>
+            <li><a href="#education" data-i18n="navEducation">Education</a></li>
+            <li><a href="#experience" data-i18n="navExperience">Experience</a></li>
+            <li><a href="#skills" data-i18n="navSkills">Skills</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="content-main">
+   <hr class="section-separator">
+        <section id="projects" class="projects-content">
+          <!-- Decorative simplex-like polygon with extreme points -->
+          <svg class="poly poly-projects parallax-layer" data-speed="1.2" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g>
+              <polygon class="poly-edge" points="30,28 190,50 160,180 40,160" />
+              <polygon class="poly-edge dashed" points="62,40 172,72 132,168 58,178" />
+              <circle class="poly-node" cx="30" cy="28" r="3"/>
+              <circle class="poly-node" cx="190" cy="50" r="3"/>
+              <circle class="poly-node" cx="160" cy="180" r="3"/>
+              <circle class="poly-node" cx="40" cy="160" r="3"/>
+            </g>
+          </svg>
+
+          <div class="content-box project-box hover-pop">
+            <h3 data-i18n="proj1Title">Optimization Practical Course</h3>
+            <h4 data-i18n="proj1Subtitle">Supply Chain & Operations Management Chair at University of Passau, Prof. Dr. Alena Otto</h4>
+            <p data-i18n="proj1Desc">Developed a network flow model to minimize truck delivery costs and documented improvements in a paper. Explored classic optimization problems.</p>
+            <div class="tags">
+              <span class="tag">Network Flow Optimization</span>
+              <span class="tag">Guroby Python</span>
+              <span class="tag" data-type="blender" data-src="./assets/blenderModels/networkFlow.glb">3D Model Example</span>
+            </div>
+          </div>
+          <div class="content-box project-box hover-pop">
+            <h3 data-i18n="proj2Title">Bachelor Seminar Thesis Optimization</h3>
+            <h4 data-i18n="proj2Subtitle">Supply Chain & Operations Management Chair at University of Passau, Prof. Dr. Alena Otto</h4>
+            <p data-i18n="proj2Desc">Implemented a facility location model minimizing travel distances under uncertainty.</p>
+            <div class="tags">
+              <span class="tag">Random Facility Location</span>
+              <span class="tag">Guroby Python</span>
+              <span class="tag" data-type="pdf" data-src="./assets/pdfs/sample.pdf">Sample PDF</span>
+            </div>
+          </div>
+          <div class="content-box project-box hover-pop">
+            <h3 data-i18n="proj3Title">Fundamentals of Management Science 1 & 2</h3>
+            <h4 data-i18n="proj3Subtitle">Supply Chain & Operations Management Chair at University of Passau, Prof. Dr. Alena Otto <br>
+            Business Decisions & Data Science Chair at University of Passau, Prof. Dr. Marc Goerigk</h4>
+            <p data-i18n="proj3Desc">Addressed cost minimization and profit maximization with real-world constraints using various optimization problems.</p>
+            <div class="tags">
+              <span class="tag">Blending Problems</span>
+              <span class="tag">Knappsack Problems</span>
+              <span class="tag">Cutting Stock Problems</span>
+              <span class="tag">Bin Packing Problems</span>
+              <span class="tag">Travelling Salesman Problems</span>
+              <span class="tag">IBM CPLEX</span>
+            </div>
+          </div>
+          <div class="content-box project-box hover-pop">
+            <h3 data-i18n="proj4Title">Information Management & Business Processes</h3>
+            <h4 data-i18n="proj4Subtitle">Operational Information Systems Chair at University of Passau</h4>
+            <p data-i18n="proj4Desc">Streamlined business processes to reduce lead times and improve efficiency.</p>
+            <div class="tags">
+              <span class="tag">Business Process Modelling (BPM)</span>
+            </div>
+          </div>
+          <div class="content-box project-box hover-pop">
+            <h3 data-i18n="proj5Title">Project 5</h3>
+            <h4 data-i18n="proj5Subtitle">Description</h4>
+            <p data-i18n="proj5Desc">Details about project 5.</p>
+            <div class="tags">
+              <span class="tag">Tag9</span>
+              <span class="tag">Tag10</span>
+            </div>
+          </div>
+        </section>
+        <hr class="section-separator">
+
+        <section id="education" class="education-content">
+          <div class="content-box education-box hover-pop">
+            <span class="edu-years">2024 – present</span>
+            <h3 data-i18n="edu1Title">B.Sc. Information Systems</h3>
+            <h4 data-i18n="edu1Subtitle">University of Passau</h4>
+            <p data-i18n="edu1Desc">Focus on optimization, business analytics, and data science.</p>
+            <div class="tags">
+              <span class="tag" data-type="pdf" data-src="./assets/certificates/certificate1.pdf" data-preset="1">View Certificate</span>
+              <span class="tag">Information Systems</span>
+              <span class="tag">Digitalization</span>
+              <span class="tag">ERP</span>
+            </div>
+          </div>
+          <div class="content-box education-box hover-pop">
+            <span class="edu-years">2021 – present</span>
+            <h3 data-i18n="edu2Title">B.Sc. Business Administration & Economics</h3>
+            <h4 data-i18n="edu2Subtitle">University of Passau</h4>
+            <p data-i18n="edu2Desc">Emphasis on ERP systems and business process management.</p>
+            <div class="tags">
+              <span class="tag" data-type="pdf" data-src="./assets/pdfs/education2.pdf" data-preset="1">View Certificate</span>
+              <span class="tag">Business</span>
+              <span class="tag">Economics</span>
+              <span class="tag">Supply Chain</span>
+            </div>
+          </div>
+          <div class="content-box education-box hover-pop">
+            <span class="edu-years">2017 – 2020</span>
+            <h3 data-i18n="edu3Title">General Entrance Qualification for Universities of Applied Sciences</h3>
+            <h4 data-i18n="edu3Subtitle">State Vocational High School (Fachoberschule), Cham</h4>
+            <p data-i18n="edu3Desc">Concentration in Economics and Business Management.</p>
+            <div class="tags">
+              <span class="tag" data-type="pdf" data-src="./assets/pdfs/education3.pdf" data-preset="1">View Certificate</span>
+              <span class="tag">Business Management</span>
+            </div>
+          </div>
+        </section>
+        <hr class="section-separator">
+
+
+        <section id="experience" class="experience-content">
+          <div class="content-box experience-box hover-pop">
+            <h3 data-i18n="exp1Title">Internships ERP Systems: <br>Business Processes & Development </h3>
+            <h4 data-i18n="exp1Subtitle">4process AG, Msg Systems AG</h4>
+            <p data-i18n="exp1Desc">Customized SAP S/4HANA business processes and developed SAP Fiori applications for analytics and decision support.</p>
+            <div class="tags">
+              <span class="tag">ERP</span>
+              <span class="tag">SAP S/4HANA</span>
+              <span class="tag">Customizing & Development</span>
+            </div>
+          </div>
+          <div class="content-box experience-box hover-pop">
+            <h3 data-i18n="exp2Title">Negotiation Strategies in Procurement Logistics</h3>
+            <h4 data-i18n="exp2Subtitle">ZF Friedrichshafen</h4>
+            <p data-i18n="exp2Desc">Applied Harvard negotiation strategies within procurement and supply chain contexts.</p>
+            <div class="tags">
+              <span class="tag">Negotiation</span>
+              <span class="tag">Procurement & production management</span>
+              <span class="tag">Harvard concept</span>
+            </div>
+          </div>
+          <div class="content-box experience-box hover-pop">
+            <h3 data-i18n="exp3Title">Production & Logistics Assistant</h3>
+            <h4 data-i18n="exp3Subtitle">Ensinger Plastics GmbH, Kunststoffwerke Katzbach Grupor, Deutsche Post DHL</h4>
+            <p data-i18n="exp3Desc">Created predictive models to support business decision-making using data science techniques.</p>
+            <div class="tags">
+              <span class="tag">Data Science</span>
+              <span class="tag">Predictive Modeling</span>
+              <span class="tag">Business Decisions</span>
+            </div>
+          </div>
+        </section>
+
+        <hr class="section-separator">
+
+        <section id="skills" class="skills-content">
+          <svg class="poly poly-skills parallax-layer" data-speed="1.2" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g>
+              <polygon class="poly-edge" points="30,28 190,50 160,180 40,160" />
+              <polygon class="poly-edge dashed" points="62,40 172,72 132,168 58,178" />
+              <circle class="poly-node" cx="30" cy="28" r="3"/>
+              <circle class="poly-node" cx="190" cy="50" r="3"/>
+              <circle class="poly-node" cx="160" cy="180" r="3"/>
+              <circle class="poly-node" cx="40" cy="160" r="3"/>
+            </g>
+          </svg>
+
+          <div class="content-box skill-box hover-pop">
+            <h3 data-i18n="skill1Title">Optimization Modeling</h3>
+            <h4 data-i18n="skill1Subtitle">Linear & Integer Programming</h4>
+            <p data-i18n="skill1Desc">Building models for facility location, flows, and scheduling.</p>
+            <div class="tags">
+              <span class="tag" data-type="pdf" data-src="./assets/pdfs/education2.pdf" data-preset="1">View Certificate</span>
+              <span class="tag">Linear Programming</span>
+              <span class="tag">Integer Programming</span>
+              <span class="tag">Gurobi</span>
+            </div>
+          </div>
+          <div class="content-box skill-box hover-pop">
+            <h3 data-i18n="skill2Title">Programming</h3>
+            <h4 data-i18n="skill2Subtitle">Python, Java, R</h4>
+            <p data-i18n="skill2Desc">Implementing algorithms and automation scripts.</p>
+            <div class="tags">
+              <span class="tag" data-type="pdf" data-src="./assets/pdfs/education2.pdf" data-preset="1">View Certificate</span>
+              <span class="tag">Python</span>
+              <span class="tag">Java</span>
+              <span class="tag">R</span>
+            </div>
+          </div>
+          <div class="content-box skill-box hover-pop">
+            <h3 data-i18n="skill3Title">Data Science</h3>
+            <h4 data-i18n="skill3Subtitle">Analysis & Visualization</h4>
+            <p data-i18n="skill3Desc">Using data to support decision-making and predictive models.</p>
+            <div class="tags">
+              <span class="tag" data-type="pdf" data-src="./assets/pdfs/education2.pdf" data-preset="1">View Certificate</span>
+              <span class="tag">Pandas</span>
+              <span class="tag">Matplotlib</span>
+              <span class="tag">SQL</span>
+            </div>
+          </div>
+          <div class="content-box skill-box hover-pop">
+            <h3 data-i18n="skill4Title">Web Development</h3>
+            <h4 data-i18n="skill4Subtitle">Front-end & Back-end</h4>
+            <p data-i18n="skill4Desc">Developing responsive and interactive web applications.</p>
+            <div class="tags">
+              <span class="tag" data-type="pdf" data-src="./assets/pdfs/education2.pdf" data-preset="1">View Certificate</span>
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">Node.js</span>
+            </div>
+          </div>
+          <div class="content-box skill-box hover-pop">
+            <h3 data-i18n="skill5Title">ERP & Business Processes</h3>
+            <h4 data-i18n="skill5Subtitle">SAP & Process Management</h4>
+            <p data-i18n="skill5Desc">Optimizing enterprise workflows and customizing ERP solutions.</p>
+            <div class="tags">
+              <span class="tag" data-type="pdf" data-src="./assets/pdfs/education2.pdf" data-preset="1">View Certificate</span>
+              <span class="tag">SAP</span>
+              <span class="tag">ERP</span>
+              <span class="tag">Process Mgmt</span>
+            </div>
+          </div>
+          <div class="content-box skill-box hover-pop">
+            <h3 data-i18n="skill6Title">Soft Skills</h3>
+            <h4 data-i18n="skill6Subtitle">Communication & Teamwork</h4>
+            <p data-i18n="skill6Desc">Effective collaboration in international and interdisciplinary teams.</p>
+            <div class="tags">
+              <span class="tag" data-type="pdf" data-src="./assets/pdfs/education2.pdf" data-preset="1">View Certificate</span>
+              <span class="tag">Teamwork</span>
+              <span class="tag">Communication</span>
+              <span class="tag">Leadership</span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p data-i18n="footer">&copy; 2025 Philipp Stockerl</p>
+  </footer>
+
+  <script type="module" src="js/three/main.js"></script>
+  <script src="js/translation.js"></script>
+
+  <script>
+    document.getElementById("langToggle").addEventListener("click", () => {
+      const current = localStorage.getItem("lang") || "en";
+      const next = current === "en" ? "de" : "en";
+      switchLanguage(next);
+    });
+  </script>
+
+</body>
+</html>
